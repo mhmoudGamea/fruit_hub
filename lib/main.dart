@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
 
+import './features/splash/presentation/views/splash_view.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp(const FruitHub());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+class FruitHub extends StatelessWidget {
+  const FruitHub({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const SplashView();
   }
 }
