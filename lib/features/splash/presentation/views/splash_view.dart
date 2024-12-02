@@ -7,7 +7,7 @@ class SplashView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('data hight quality of it'),
+        title: const Text('data'),
         centerTitle: true,
       ),
       body: Container(),

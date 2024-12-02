@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_hub/core/config/app_theme.dart';
 
-import './features/splash/presentation/views/splash_view.dart';
+import 'core/config/app_theme.dart';
+import 'core/services/navigation.dart';
 
 void main() {
   runApp(const FruitHub());
@@ -12,10 +12,10 @@ class FruitHub extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const SplashView(),
+      routerConfig: Navigation.getRouter,
     );
   }
 }
