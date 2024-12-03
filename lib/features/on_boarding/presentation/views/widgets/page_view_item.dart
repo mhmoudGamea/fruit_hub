@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/config/app_style.dart';
+import '../../../../auth/presentation/views/auth_view.dart';
 import '../../view_model/page_controller/controller_cubit.dart';
 import '../../view_model/page_controller/controller_state.dart';
 
@@ -44,7 +47,7 @@ class PageViewItem extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: Text(
                   subtitle,
-                  style: AppStyle.font13semi,
+                  style: AppStyle.fontsemi13.copyWith(color: AppColors.gray),
                   textAlign: TextAlign.center,
                 ),
               )
@@ -53,15 +56,17 @@ class PageViewItem extends StatelessWidget {
         ),
         BlocBuilder<ControllerCubit, ControllerState>(
           builder: (context, state) => Visibility(
-            visible:
-                controller.getPageController.page!.round() == 0 ? true : false,
+            visible: controller.getCurrentPage == 0 ? true : false,
             child: Positioned(
               top: 40,
               right: 25,
-              child: Text(
-                'تخط',
-                style: AppStyle.font13semi.copyWith(
-                  fontWeight: FontWeight.w400,
+              child: InkWell(
+                onTap: () {
+                  GoRouter.of(context).pushReplacement(AuthView.rn);
+                },
+                child: Text(
+                  'تخط',
+                  style: AppStyle.fontregular13.copyWith(color: AppColors.gray),
                 ),
               ),
             ),

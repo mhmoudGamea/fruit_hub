@@ -4,20 +4,17 @@ abstract class AppStyle {
   // app fonts
   static const cairoFont = 'cairo';
   // font 13
-  static const font13regular = TextStyle(
+  static const fontregular13 = TextStyle(
     fontSize: 13,
     fontWeight: FontWeight.w400,
-    color: Color(0xff4E5556),
   );
-  static const font13semi = TextStyle(
+  static const fontsemi13 = TextStyle(
     fontSize: 13,
     fontWeight: FontWeight.w600,
-    color: Color(0xff4E5556),
   );
-  static const font13bold = TextStyle(
+  static const fontbold13 = TextStyle(
     fontSize: 13,
     fontWeight: FontWeight.w700,
-    color: Color(0xff4E5556),
   );
   // font 16
   static const font16 = TextStyle(

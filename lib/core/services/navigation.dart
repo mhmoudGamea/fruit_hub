@@ -1,13 +1,10 @@
 import 'package:go_router/go_router.dart';
 
+import '../../features/auth/presentation/views/auth_view.dart';
 import '../../features/on_boarding/presentation/views/on_boarding_view.dart';
 import '../../features/splash/presentation/views/splash_view.dart';
 
 abstract class Navigation {
-  // application route names
-  static const _splashViewRoute = '/';
-  static const _onBoardingViewRoute = '/onBoardingView';
-
   static get getRouter {
     return _router;
   }
@@ -15,12 +12,16 @@ abstract class Navigation {
   static final _router = GoRouter(
     routes: [
       GoRoute(
-        path: _splashViewRoute,
+        path: SplashView.rn,
         builder: (context, state) => const SplashView(),
       ),
       GoRoute(
-        path: _onBoardingViewRoute,
+        path: OnBoardingView.rn,
         builder: (context, state) => const OnBoardingView(),
+      ),
+      GoRoute(
+        path: AuthView.rn,
+        builder: (context, state) => const AuthView(),
       ),
     ],
   );
