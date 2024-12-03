@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fruit_hub/core/services/service_locator.dart';
 
 import 'core/config/app_theme.dart';
 import 'core/services/navigation.dart';
 import 'generated/l10n.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ServiceLocator.initializeSingletons();
   runApp(const FruitHub());
 }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fruit_hub/core/services/preferences.dart';
 import 'package:fruit_hub/core/utilies/app_images.dart';
+import 'package:fruit_hub/features/auth/presentation/views/auth_view.dart';
 import 'package:fruit_hub/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:go_router/go_router.dart';
 
@@ -50,7 +52,12 @@ class _SplashViewBodyState extends State<SplashViewBody>
   _onBoardingNavigation() {
     Future.delayed(
       const Duration(seconds: 6),
-      () => GoRouter.of(context).pushReplacement(OnBoardingView.rn),
+      () {
+        final status = Preferences.checkOnBoardingStatus();
+        status
+            ? GoRouter.of(context).pushReplacement(AuthView.rn)
+            : GoRouter.of(context).pushReplacement(OnBoardingView.rn);
+      },
     );
   }
 

@@ -7,6 +7,7 @@ import 'package:fruit_hub/features/on_boarding/presentation/view_model/page_cont
 import 'package:fruit_hub/features/on_boarding/presentation/view_model/page_controller/controller_state.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../core/services/preferences.dart';
 import '../../../../auth/presentation/views/auth_view.dart';
 import 'on_boarding_page_view.dart';
 
@@ -49,6 +50,7 @@ class OnBoardingViewBody extends StatelessWidget {
               child: CustomButton(
                 data: 'ابدأ الان',
                 onPressed: () {
+                  Preferences.setOnBoardingStatus();
                   GoRouter.of(context).pushReplacement(AuthView.rn);
                 },
               ),

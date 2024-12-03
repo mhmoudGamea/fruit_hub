@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/config/app_style.dart';
+import '../../../../../core/services/preferences.dart';
 import '../../../../auth/presentation/views/auth_view.dart';
 import '../../view_model/page_controller/controller_cubit.dart';
 import '../../view_model/page_controller/controller_state.dart';
@@ -62,6 +63,7 @@ class PageViewItem extends StatelessWidget {
               right: 25,
               child: InkWell(
                 onTap: () {
+                  Preferences.setOnBoardingStatus();
                   GoRouter.of(context).pushReplacement(AuthView.rn);
                 },
                 child: Text(
