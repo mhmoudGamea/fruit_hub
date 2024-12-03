@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/config/app_colors.dart';
 import 'package:fruit_hub/core/config/app_style.dart';
 import 'package:fruit_hub/core/utilies/app_images.dart';
+import 'package:fruit_hub/features/on_boarding/presentation/view_model/page_controller/controller_cubit.dart';
 
 import 'page_view_item.dart';
 
@@ -10,7 +12,9 @@ class OnBoardingPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = BlocProvider.of<ControllerCubit>(context);
     return PageView(
+      controller: controller.getPageController,
       children: [
         PageViewItem(
           bgImage: AppImages.fruitBasketVector,

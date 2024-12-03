@@ -21,10 +21,11 @@ abstract class AppTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        minimumSize: const Size(330, 54),
         backgroundColor: AppColors.primaryColor,
-        textStyle: AppStyle.font16,
+        textStyle: AppStyle.font16.copyWith(color: AppColors.white),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(16),
         ),
       ),
     ),
@@ -47,10 +48,11 @@ abstract class AppTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        minimumSize: const Size(330, 54),
         backgroundColor: AppColors.primaryColor,
-        textStyle: AppStyle.font16,
+        textStyle: AppStyle.font16.copyWith(color: AppColors.white),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(16),
         ),
       ),
     ),

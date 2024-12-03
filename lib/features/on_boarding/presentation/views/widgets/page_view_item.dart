@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fruit_hub/core/config/app_style.dart';
+
+import '../../../../../core/config/app_style.dart';
+import '../../view_model/page_controller/controller_cubit.dart';
+import '../../view_model/page_controller/controller_state.dart';
 
 class PageViewItem extends StatelessWidget {
   final String image, bgImage;
@@ -15,6 +19,7 @@ class PageViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = BlocProvider.of<ControllerCubit>(context);
     return Stack(
       children: [
         SvgPicture.asset(
@@ -32,30 +37,36 @@ class PageViewItem extends StatelessWidget {
                 image,
                 fit: BoxFit.fill,
               ),
-              const SizedBox(height: 60),
+              const SizedBox(height: 40),
               title,
               const SizedBox(height: 24),
-              Text(
-                subtitle,
-                style: AppStyle.font13,
-                textAlign: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Text(
+                  subtitle,
+                  style: AppStyle.font13semi,
+                  textAlign: TextAlign.center,
+                ),
               )
             ],
           ),
         ),
-        Positioned(
-          top: 40,
-          right: 15,
-          child: InkWell(
-            onTap: () => print('hi flutter'),
-            child: Text(
-              'تخط',
-              style: AppStyle.font13.copyWith(
-                fontWeight: FontWeight.w400,
+        BlocBuilder<ControllerCubit, ControllerState>(
+          builder: (context, state) => Visibility(
+            visible:
+                controller.getPageController.page!.round() == 0 ? true : false,
+            child: Positioned(
+              top: 40,
+              right: 25,
+              child: Text(
+                'تخط',
+                style: AppStyle.font13semi.copyWith(
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }
