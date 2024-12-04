@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 
-import '../../features/auth/presentation/views/auth_view.dart';
+import '../../features/auth/presentation/views/login_view.dart';
 import '../../features/on_boarding/presentation/views/on_boarding_view.dart';
 import '../../features/splash/presentation/views/splash_view.dart';
 
@@ -20,8 +20,8 @@ abstract class Navigation {
         builder: (context, state) => const OnBoardingView(),
       ),
       GoRoute(
-        path: AuthView.rn,
-        builder: (context, state) => const AuthView(),
+        path: LoginView.rn,
+        builder: (context, state) => const LoginView(),
       ),
     ],
   );

@@ -1,14 +1,14 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub/core/config/app_colors.dart';
-import 'package:fruit_hub/core/widgets/custom_button.dart';
-import 'package:fruit_hub/features/on_boarding/presentation/view_model/page_controller/controller_cubit.dart';
-import 'package:fruit_hub/features/on_boarding/presentation/view_model/page_controller/controller_state.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/services/preferences.dart';
-import '../../../../auth/presentation/views/auth_view.dart';
+import '../../../../../core/widgets/custom_button.dart';
+import '../../../../auth/presentation/views/login_view.dart';
+import '../../view_model/page_controller/controller_cubit.dart';
+import '../../view_model/page_controller/controller_state.dart';
 import 'on_boarding_page_view.dart';
 
 class OnBoardingViewBody extends StatelessWidget {
@@ -29,7 +29,7 @@ class OnBoardingViewBody extends StatelessWidget {
               decorator: DotsDecorator(
                 activeColor: AppColors.primaryColor,
                 color: controller.getCurrentPage == 0
-                    ? AppColors.primaryColor.withOpacity(0.5)
+                    ? AppColors.lightPrimaryColor
                     : AppColors.primaryColor,
               ),
             ),
@@ -51,7 +51,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 data: 'ابدأ الان',
                 onPressed: () {
                   Preferences.setOnBoardingStatus();
-                  GoRouter.of(context).pushReplacement(AuthView.rn);
+                  GoRouter.of(context).pushReplacement(LoginView.rn);
                 },
               ),
             ),

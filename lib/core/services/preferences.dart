@@ -8,7 +8,8 @@ abstract class Preferences {
   /// onBoarding or auth screen
   /// for that we will use checkOnBoardingStatus
   static void setOnBoardingStatus() async {
-    ServiceLocator.getIt<SharedPreferences>().setBool('seenOnBoarding', true);
+    await ServiceLocator.getIt<SharedPreferences>()
+        .setBool('seenOnBoarding', true);
   }
 
   /// this will be used in splash so if seenOnBoarding == true
@@ -19,5 +20,27 @@ abstract class Preferences {
     return ServiceLocator.getIt<SharedPreferences>()
             .getBool('seenOnBoarding') ??
         false;
+  }
+
+  // method for set value in sharedPreferences
+  static void setValue({required String key, required dynamic value}) async {
+    final pref = ServiceLocator.getIt<SharedPreferences>();
+    if (value is bool) {
+      await pref.setBool(key, value);
+    } else if (value is int) {
+      await pref.setInt(key, value);
+    } else if (value is double) {
+      await pref.setDouble(key, value);
+    } else if (value is String) {
+      await pref.setString(key, value);
+    } else {
+      throw Exception('Unsupported value type');
+    }
+  }
+
+  // method for get value from sharedPreferences
+  static dynamic getValue({required String key}) {
+    final pref = ServiceLocator.getIt<SharedPreferences>();
+    return pref.get(key);
   }
 }

@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/config/app_style.dart';
 import '../../../../../core/services/preferences.dart';
-import '../../../../auth/presentation/views/auth_view.dart';
+import '../../../../auth/presentation/views/login_view.dart';
 import '../../view_model/page_controller/controller_cubit.dart';
 import '../../view_model/page_controller/controller_state.dart';
 
@@ -48,7 +48,8 @@ class PageViewItem extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: Text(
                   subtitle,
-                  style: AppStyle.fontsemi13.copyWith(color: AppColors.gray),
+                  style: AppStyle.fontsemi13
+                      .copyWith(color: AppColors.subtitleColor),
                   textAlign: TextAlign.center,
                 ),
               )
@@ -64,11 +65,12 @@ class PageViewItem extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   Preferences.setOnBoardingStatus();
-                  GoRouter.of(context).pushReplacement(AuthView.rn);
+                  GoRouter.of(context).pushReplacement(LoginView.rn);
                 },
                 child: Text(
                   'تخط',
-                  style: AppStyle.fontregular13.copyWith(color: AppColors.gray),
+                  style: AppStyle.fontregular13
+                      .copyWith(color: AppColors.subtitleColor),
                 ),
               ),
             ),

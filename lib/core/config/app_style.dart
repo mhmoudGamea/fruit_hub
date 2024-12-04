@@ -17,17 +17,21 @@ abstract class AppStyle {
     fontWeight: FontWeight.w700,
   );
   // font 16
-  static const font16 = TextStyle(
+  static const fontsemi16 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+  );
+  static const fontbold16 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w700,
   );
   // font 19
-  static const font19 = TextStyle(
+  static const fontbold19 = TextStyle(
     fontSize: 19,
     fontWeight: FontWeight.w700,
   );
   // font 23
-  static const font23 = TextStyle(
+  static const fontbold23 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w700,
   );

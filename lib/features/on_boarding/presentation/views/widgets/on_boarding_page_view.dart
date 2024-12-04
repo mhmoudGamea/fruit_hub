@@ -22,17 +22,17 @@ class OnBoardingPageView extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('مرحبًا بك في', style: AppStyle.font23),
+              const Text('مرحبًا بك في', style: AppStyle.fontbold23),
               const SizedBox(width: 10),
               Text(
                 'HUB',
-                style: AppStyle.font23.copyWith(
+                style: AppStyle.fontbold23.copyWith(
                   color: AppColors.secondaryColor,
                 ),
               ),
               Text(
                 'Fruit',
-                style: AppStyle.font23.copyWith(
+                style: AppStyle.fontbold23.copyWith(
                   color: AppColors.primaryColor,
                 ),
               ),
@@ -44,7 +44,7 @@ class OnBoardingPageView extends StatelessWidget {
         const PageViewItem(
             bgImage: AppImages.pineapleVector,
             image: AppImages.pineaple,
-            title: Text('ابحث وتسوق', style: AppStyle.font23),
+            title: Text('ابحث وتسوق', style: AppStyle.fontbold23),
             subtitle:
                 'نقدم لك أفضل الفواكه المختارة بعناية. اطلع على التفاصيل والصور والتقييمات لتتأكد من اختيار الفاكهة المثالية'),
       ],

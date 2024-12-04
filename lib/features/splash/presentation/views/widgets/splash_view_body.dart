@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fruit_hub/core/services/preferences.dart';
-import 'package:fruit_hub/core/utilies/app_images.dart';
-import 'package:fruit_hub/features/auth/presentation/views/auth_view.dart';
-import 'package:fruit_hub/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../../../core/services/preferences.dart';
+import '../../../../../core/utilies/app_images.dart';
+import '../../../../auth/presentation/views/login_view.dart';
+import '../../../../on_boarding/presentation/views/on_boarding_view.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -55,7 +56,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
       () {
         final status = Preferences.checkOnBoardingStatus();
         status
-            ? GoRouter.of(context).pushReplacement(AuthView.rn)
+            ? GoRouter.of(context).pushReplacement(LoginView.rn)
             : GoRouter.of(context).pushReplacement(OnBoardingView.rn);
       },
     );

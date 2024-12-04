@@ -23,11 +23,15 @@ abstract class AppTheme {
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(330, 54),
         backgroundColor: AppColors.primaryColor,
-        textStyle: AppStyle.font16.copyWith(color: AppColors.white),
+        textStyle: AppStyle.fontbold16.copyWith(color: AppColors.white),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
       ),
+    ),
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: AppColors.darkPrimaryColor,
+      selectionHandleColor: AppColors.darkPrimaryColor,
     ),
   );
   // dark theme mode
@@ -50,11 +54,15 @@ abstract class AppTheme {
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(330, 54),
         backgroundColor: AppColors.primaryColor,
-        textStyle: AppStyle.font16.copyWith(color: AppColors.white),
+        textStyle: AppStyle.fontbold16.copyWith(color: AppColors.white),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
       ),
+    ),
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: AppColors.lightPrimaryColor,
+      selectionHandleColor: AppColors.lightPrimaryColor,
     ),
   );
 }
