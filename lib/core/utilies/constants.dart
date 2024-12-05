@@ -1,4 +1,4 @@
-const authViewBorder = 17.0;
+const authViewPadding = 16.0;
 const textFormFieldRadius = 4.0;
 
 enum IconType {

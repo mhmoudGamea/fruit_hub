@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_hub/core/widgets/custom_button.dart';
-import 'package:fruit_hub/features/auth/presentation/views/widgets/custom_account_prompt.dart';
-import 'package:fruit_hub/features/auth/presentation/views/widgets/custom_divider.dart';
-import 'package:fruit_hub/features/auth/presentation/views/widgets/custom_social_button.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/config/app_style.dart';
 import '../../../../../core/utilies/constants.dart';
+import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_text_form_field.dart';
+import '../forget_password_view.dart';
+import '../signup_view.dart';
+import 'custom_account_prompt.dart';
+import 'custom_divider.dart';
+import 'custom_social_button.dart';
 
 class LoginViewBody extends StatelessWidget {
   const LoginViewBody({super.key});
@@ -16,9 +19,10 @@ class LoginViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: authViewBorder),
+        padding: const EdgeInsets.symmetric(horizontal: authViewPadding),
         child: Column(
           children: [
+            const SizedBox(height: 24),
             const CustomTextFormField(
               hint: 'البريد الإلكتروني',
               inputType: TextInputType.emailAddress,
@@ -33,18 +37,24 @@ class LoginViewBody extends StatelessWidget {
             const SizedBox(height: 16),
             Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                'نسيت كلمة المرور؟',
-                style: AppStyle.fontsemi13
-                    .copyWith(color: AppColors.darkPrimaryColor),
+              child: InkWell(
+                onTap: () => GoRouter.of(context).push(ForgetPasswordView.rn),
+                child: Text(
+                  'نسيت كلمة المرور؟',
+                  style: AppStyle.fontsemi13
+                      .copyWith(color: AppColors.darkPrimaryColor),
+                ),
               ),
             ),
             const SizedBox(height: 33),
             CustomButton(onPressed: () {}, data: 'تسجيل دخول'),
             const SizedBox(height: 33),
-            const CustomAccountPrompt(
+            CustomAccountPrompt(
               firstTitle: 'لا تمتلك حساب؟',
               secondTitle: '  قم بإنشاء حساب',
+              onPressed: () {
+                GoRouter.of(context).push(SignupView.rn);
+              },
             ),
             const SizedBox(height: 49),
             const CustomDivider(),
@@ -66,6 +76,7 @@ class LoginViewBody extends StatelessWidget {
               text: 'تسجيل بواسطة فيسبوك',
               socialMediaLogo: 'assets/images/facebook.svg',
             ),
+            const SizedBox(height: 16),
           ],
         ),
       ),
