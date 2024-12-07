@@ -8,15 +8,16 @@ class ServiceException extends FirebaseException {
 
   factory ServiceException.fromAuth({required String error}) {
     if (error == 'weak-password') {
-      return ServiceException('The password provided is too weak');
+      return ServiceException(
+          'هذا الرقم السري ضعيف للغايه. برجاء كتابه رقم سري اقوي');
     } else if (error == 'email-already-in-use') {
-      return ServiceException('The account already exists for that email.');
+      return ServiceException('لقد قمت بالتسجيل مسبقا. برجاء تسجيل الدخول');
     } else if (error == 'user-not-found') {
-      return ServiceException('No user found for that email.');
+      return ServiceException('لا يوجد مستخدم بهذا الايميل');
     } else if (error == 'wrong-password') {
-      return ServiceException('Wrong password provided for that user.');
+      return ServiceException('الرقم السري الذي قمت بإدخاله خاطئ.');
     } else {
-      return ServiceException('An error occured, please try again later.');
+      return ServiceException('حدث خطأ ما. برجاء المحاوله مره أخري');
     }
   }
 }

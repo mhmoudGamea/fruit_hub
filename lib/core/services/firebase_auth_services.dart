@@ -15,7 +15,7 @@ abstract class FirebaseAuthServices {
     } on FirebaseAuthException catch (error) {
       throw ServiceException.fromAuth(error: error.code);
     } catch (error) {
-      throw ServiceException('An error occured, please try again later :)');
+      throw ServiceException('حدث خطأ ما. برجاء المحاوله مره أخري');
     }
   }
 
@@ -26,7 +26,7 @@ abstract class FirebaseAuthServices {
     } on FirebaseAuthException catch (error) {
       throw ServiceException.fromAuth(error: error.code);
     } catch (error) {
-      throw ServiceException('An error occured, please try again later :)');
+      throw ServiceException('حدث خطأ ما. برجاء المحاوله مره أخري');
     }
   }
 }
