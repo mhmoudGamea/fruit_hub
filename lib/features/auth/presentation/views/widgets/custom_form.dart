@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub/core/utilies/helper.dart';
 
-import '../../../../../core/utilies/constants.dart';
+import '../../../../../core/utilies/helper.dart';
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_text_form_field.dart';
+import '../../../../../core/widgets/custom_text_form_password_field.dart';
 import '../../model_views/signup_cubit/signup_cubit.dart';
 import 'custom_terms_and_condition.dart';
 
@@ -35,11 +35,9 @@ class CustomForm extends StatelessWidget {
             },
           ),
           const SizedBox(height: 16),
-          CustomTextFormField(
+          CustomTextFormPasswordField(
             hint: 'كلمة المرور',
             inputType: TextInputType.visiblePassword,
-            withSuffix: true,
-            iconType: IconType.password,
             onSaved: (p0) {
               signupCubit.setPassword = p0!;
             },

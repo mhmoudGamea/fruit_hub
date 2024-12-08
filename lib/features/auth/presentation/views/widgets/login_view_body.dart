@@ -6,6 +6,7 @@ import '../../../../../core/config/app_style.dart';
 import '../../../../../core/utilies/constants.dart';
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_text_form_field.dart';
+import '../../../../../core/widgets/custom_text_form_password_field.dart';
 import '../forget_password_view.dart';
 import '../signup_view.dart';
 import 'custom_account_prompt.dart';
@@ -28,11 +29,9 @@ class LoginViewBody extends StatelessWidget {
               inputType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 16),
-            const CustomTextFormField(
+            const CustomTextFormPasswordField(
               hint: 'كلمة المرور',
               inputType: TextInputType.visiblePassword,
-              withSuffix: true,
-              iconType: IconType.password,
             ),
             const SizedBox(height: 16),
             Align(

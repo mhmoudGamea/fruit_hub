@@ -42,23 +42,28 @@ class CustomTextFormField extends StatelessWidget {
       obscuringCharacter: '⦁',
       cursorColor: AppColors.primaryColor,
       decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: AppStyle.fontbold13.copyWith(
-          color: AppColors.hintInputTextColor,
-        ),
-        border: inputBorder(textFormFieldRadius),
-        focusedBorder: inputBorder(textFormFieldRadius),
-        enabledBorder: inputBorder(textFormFieldRadius),
-        filled: true,
-        fillColor: AppColors.fillInputTextColor,
-        suffixIcon: withSuffix
-            ? Icon(
-                iconType == IconType.password ? Iconsax.eye : Iconsax.edit_2,
-                size: 22,
-                color: const Color(0xff949D9E),
-              )
-            : null,
-      ),
+          hintText: hint,
+          hintStyle: AppStyle.fontbold13.copyWith(
+            color: AppColors.hintInputTextColor,
+          ),
+          border: inputBorder(textFormFieldRadius),
+          focusedBorder: inputBorder(textFormFieldRadius),
+          enabledBorder: inputBorder(textFormFieldRadius),
+          filled: true,
+          fillColor: AppColors.fillInputTextColor,
+          suffixIcon: withSuffix && iconType == IconType.password
+              ? const Icon(
+                  Iconsax.eye,
+                  size: 22,
+                  color: Color(0xff949D9E),
+                )
+              : withSuffix
+                  ? const Icon(
+                      Iconsax.edit_2,
+                      size: 22,
+                      color: Color(0xff949D9E),
+                    )
+                  : null),
     );
   }
 }
