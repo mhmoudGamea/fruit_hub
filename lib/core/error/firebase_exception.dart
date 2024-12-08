@@ -16,6 +16,9 @@ class ServiceException extends FirebaseException {
       return ServiceException('لا يوجد مستخدم بهذا الايميل');
     } else if (error == 'wrong-password') {
       return ServiceException('الرقم السري الذي قمت بإدخاله خاطئ.');
+    } else if (error == 'network-request-failed') {
+      return ServiceException(
+          'لا يوجد اتصال بالإنترنت. برجاء التأكد من انك متصل بالإنترنت');
     } else {
       return ServiceException('حدث خطأ ما. برجاء المحاوله مره أخري');
     }
