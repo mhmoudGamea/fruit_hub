@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../../../core/utilies/helper.dart';
 import '../../../domain/repos/auth_repo.dart';
 import '../../../domain/repos/auth_repo_impl.dart';
 import 'signup_state.dart';
@@ -67,6 +68,26 @@ class SignupCubit extends Cubit<SignupState> {
     }, (userEntity) {
       emit(SignupSuccess(userEntity: userEntity));
     });
+  }
+
+  /// this method will be triggered when create new user button is pressed
+  /// it use signupUser method
+  void createNewUser(BuildContext context) {
+    if (getFormKey.currentState!.validate()) {
+      getFormKey.currentState!.save();
+      if (getIsChecked) {
+        signupUser(
+          name: getName,
+          email: getEmail,
+          password: getPassword,
+        );
+      } else {
+        Helper.successMessage(context,
+            message: 'من فضلك قم بمراجعه الشروط والاحكام لإنشاء حساب جديد.');
+      }
+    } else {
+      setAutoValidate = AutovalidateMode.always;
+    }
   }
 
   /// handling terms and conditions part

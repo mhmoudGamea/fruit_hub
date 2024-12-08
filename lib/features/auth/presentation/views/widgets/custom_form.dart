@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/utilies/helper.dart';
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_text_form_field.dart';
 import '../../../../../core/widgets/custom_text_form_password_field.dart';
@@ -50,21 +49,7 @@ class CustomForm extends StatelessWidget {
           const SizedBox(height: 30),
           CustomButton(
               onPressed: () {
-                if (signupCubit.getFormKey.currentState!.validate()) {
-                  signupCubit.getFormKey.currentState!.save();
-                  if (signupCubit.getIsChecked) {
-                    signupCubit.signupUser(
-                        name: signupCubit.getName,
-                        email: signupCubit.getEmail,
-                        password: signupCubit.getPassword);
-                  } else {
-                    Helper.successMessage(context,
-                        message:
-                            'من فضلك قم بمراجعه الشروط والاحكام لإنشاء حساب جديد.');
-                  }
-                } else {
-                  signupCubit.setAutoValidate = AutovalidateMode.always;
-                }
+                signupCubit.createNewUser(context);
               },
               data: 'إنشاء حساب جديد'),
         ],

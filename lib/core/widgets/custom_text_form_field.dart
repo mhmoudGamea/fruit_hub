@@ -8,14 +8,12 @@ class CustomTextFormField extends StatelessWidget {
   final String hint;
   final TextInputType inputType;
   final bool withSuffix;
-  final IconType iconType;
   final Function(String?)? onSaved;
   const CustomTextFormField({
     super.key,
     required this.hint,
     required this.inputType,
     this.withSuffix = false,
-    this.iconType = IconType.initial,
     this.onSaved,
   });
 
@@ -38,8 +36,6 @@ class CustomTextFormField extends StatelessWidget {
       },
       onSaved: onSaved,
       keyboardType: inputType,
-      obscureText: iconType == IconType.password ? true : false,
-      obscuringCharacter: '⦁',
       cursorColor: AppColors.primaryColor,
       decoration: InputDecoration(
           hintText: hint,
@@ -51,19 +47,13 @@ class CustomTextFormField extends StatelessWidget {
           enabledBorder: inputBorder(textFormFieldRadius),
           filled: true,
           fillColor: AppColors.fillInputTextColor,
-          suffixIcon: withSuffix && iconType == IconType.password
+          suffixIcon: withSuffix
               ? const Icon(
-                  Iconsax.eye,
+                  Iconsax.edit_2,
                   size: 22,
                   color: Color(0xff949D9E),
                 )
-              : withSuffix
-                  ? const Icon(
-                      Iconsax.edit_2,
-                      size: 22,
-                      color: Color(0xff949D9E),
-                    )
-                  : null),
+              : null),
     );
   }
 }
