@@ -51,7 +51,10 @@ class LoginViewBody extends StatelessWidget {
                 const CustomDivider(),
                 const SizedBox(height: 31),
                 CustomSocialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // loginCubit.loginWithGoogle();
+                    context.read<LoginCubit>().signinWithGoogle();
+                  },
                   text: 'تسجيل بواسطة جوجل',
                   socialMediaLogo: 'assets/images/google.svg',
                 ),

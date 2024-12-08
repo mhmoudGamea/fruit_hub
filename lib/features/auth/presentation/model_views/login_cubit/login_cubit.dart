@@ -73,4 +73,15 @@ class LoginCubit extends Cubit<LoginState> {
       setAutoValidate = AutovalidateMode.always;
     }
   }
+
+  /// this method will be triggered when login with google button is pressed
+  Future<void> signinWithGoogle() async {
+    emit(LoginLoading());
+    final data = await _authRepo.signinWithGoogle();
+    data.fold((error) {
+      emit(LoginFailure(error: error.message));
+    }, (userEntity) {
+      emit(LoginSuccess(userEntity: userEntity));
+    });
+  }
 }
