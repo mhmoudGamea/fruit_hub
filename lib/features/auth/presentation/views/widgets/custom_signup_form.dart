@@ -7,8 +7,8 @@ import '../../../../../core/widgets/custom_text_form_password_field.dart';
 import '../../model_views/signup_cubit/signup_cubit.dart';
 import 'custom_terms_and_condition.dart';
 
-class CustomForm extends StatelessWidget {
-  const CustomForm({super.key});
+class CustomSignupForm extends StatelessWidget {
+  const CustomSignupForm({super.key});
 
   @override
   Widget build(BuildContext context) {

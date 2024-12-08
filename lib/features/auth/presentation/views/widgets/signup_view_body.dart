@@ -8,7 +8,7 @@ import '../../../../../core/utilies/constants.dart';
 import '../../model_views/signup_cubit/signup_cubit.dart';
 import '../../model_views/signup_cubit/signup_state.dart';
 import 'custom_account_prompt.dart';
-import 'custom_form.dart';
+import 'custom_signup_form.dart';
 
 class SignupViewBody extends StatelessWidget {
   const SignupViewBody({super.key});
@@ -36,7 +36,7 @@ class SignupViewBody extends StatelessWidget {
                     ? LinearProgressIndicator(color: AppColors.darkPrimaryColor)
                     : const SizedBox(height: 0),
                 const SizedBox(height: 24),
-                const CustomForm(),
+                const CustomSignupForm(),
                 const SizedBox(height: 26),
                 CustomAccountPrompt(
                   firstTitle: 'تمتلك حساب بالفعل؟',

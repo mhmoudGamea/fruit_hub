@@ -17,6 +17,10 @@ class SignupCubit extends Cubit<SignupState> {
   late String _email;
   late String _password;
 
+  GlobalKey<FormState> get getFormKey {
+    return _formKey;
+  }
+
   set setAutoValidate(AutovalidateMode auto) {
     _autovalidateMode = auto;
   }
@@ -47,10 +51,6 @@ class SignupCubit extends Cubit<SignupState> {
 
   String get getPassword {
     return _password;
-  }
-
-  GlobalKey<FormState> get getFormKey {
-    return _formKey;
   }
 
   /// handling create new user part

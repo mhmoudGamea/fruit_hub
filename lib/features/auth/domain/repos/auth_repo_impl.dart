@@ -29,8 +29,9 @@ class AuthRepoImpl extends AuthRepo {
     required String password,
   }) async {
     try {
-      await FirebaseAuthServices.loginUser(email: email, password: password);
-      throw Exception();
+      final user = await FirebaseAuthServices.loginUser(
+          email: email, password: password);
+      return right(UserModel.fromUser(user));
     } on ServiceException catch (error) {
       return left(ServerFailure(error.message));
     }
