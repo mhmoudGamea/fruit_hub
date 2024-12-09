@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:fruit_hub/core/services/firebase_auth_services.dart';
 import 'package:fruit_hub/features/auth/data/user_model.dart';
@@ -19,6 +21,7 @@ class AuthRepoImpl extends AuthRepo {
           email: email, password: password);
       return right(UserModel.fromUser(user));
     } on ServiceException catch (error) {
+      log('Exception in AuthrepoImpl.createUserWithEmailAndPassword() method ${error.toString()}');
       return left(ServerFailure(error.message));
     }
   }
@@ -33,6 +36,7 @@ class AuthRepoImpl extends AuthRepo {
           email: email, password: password);
       return right(UserModel.fromUser(user));
     } on ServiceException catch (error) {
+      log('Exception in AuthrepoImpl.loginUserWithEmailAndPassword() method ${error.toString()}');
       return left(ServerFailure(error.message));
     }
   }
@@ -43,7 +47,19 @@ class AuthRepoImpl extends AuthRepo {
       final user = await FirebaseAuthServices.signInWithGoogle();
       return right(UserModel.fromUser(user));
     } catch (error) {
-      return left(ServerFailure(error.toString()));
+      log('Exception in AuthrepoImpl.signinWithGoogle() method ${error.toString()}');
+      return left(ServerFailure('حدث خطأ ما برجاء المحاوله مره أخري.'));
     }
   }
+
+  // @override
+  // Future<Either<Failure, UserEntity>> signinWithFacebook() async {
+  //   try {
+  //     final user = await FirebaseAuthServices.signInWithFacebook();
+  //     return right(UserModel.fromUser(user));
+  //   } catch (error) {
+  //     log('Exception in AuthrepoImpl.signinWithFacebook() method ${error.toString()}');
+  //     return left(ServerFailure('حدث خطأ ما برجاء المحاوله مره أخري.'));
+  //   }
+  // }
 }

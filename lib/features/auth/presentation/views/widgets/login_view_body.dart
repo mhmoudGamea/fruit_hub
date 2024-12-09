@@ -52,7 +52,6 @@ class LoginViewBody extends StatelessWidget {
                 const SizedBox(height: 31),
                 CustomSocialButton(
                   onPressed: () {
-                    // loginCubit.loginWithGoogle();
                     context.read<LoginCubit>().signinWithGoogle();
                   },
                   text: 'تسجيل بواسطة جوجل',
@@ -66,7 +65,9 @@ class LoginViewBody extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 CustomSocialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // context.read<LoginCubit>().signinWithFacebook();
+                  },
                   text: 'تسجيل بواسطة فيسبوك',
                   socialMediaLogo: 'assets/images/facebook.svg',
                 ),
