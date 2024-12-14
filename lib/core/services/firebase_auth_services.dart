@@ -6,23 +6,23 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../error/firebase_exception.dart';
 
-abstract class FirebaseAuthServices {
+class FirebaseAuthServices {
   static final FirebaseAuth _getIt = GetIt.instance<FirebaseAuth>();
 
-  static Future<User> signupUser(
+  Future<User> signupUser(
       {required String email, required String password}) async {
     try {
       final credential = await _getIt.createUserWithEmailAndPassword(
           email: email, password: password);
       return credential.user!;
     } on FirebaseAuthException catch (error) {
-      throw ServiceException.fromAuth(error: error.code);
+      throw ServiceException.fromAuth(code: error.code);
     } catch (error) {
       throw ServiceException('حدث خطأ ما. برجاء المحاوله مره أخري');
     }
   }
 
-  static Future<User> loginUser(
+  Future<User> loginUser(
       {required String email, required String password}) async {
     try {
       final credential = await _getIt.signInWithEmailAndPassword(
@@ -31,13 +31,13 @@ abstract class FirebaseAuthServices {
     } on FirebaseAuthException catch (error) {
       log(error.code);
       log(error.message!);
-      throw ServiceException.fromAuth(error: error.code);
+      throw ServiceException.fromAuth(code: error.code);
     } catch (error) {
       throw ServiceException('حدث خطأ ما. برجاء المحاوله مره أخري');
     }
   }
 
-  static Future<User> signInWithGoogle() async {
+  Future<User> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     final GoogleSignInAuthentication? googleAuth =

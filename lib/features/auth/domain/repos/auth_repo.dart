@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:fruit_hub/core/error/failure.dart';
-
+import '../../../../core/error/failure.dart';
 import '../entities/user_entity.dart';
 
 abstract class AuthRepo {
@@ -12,4 +11,5 @@ abstract class AuthRepo {
 
   Future<Either<Failure, UserEntity>> signinWithGoogle();
   // Future<Either<Failure, UserEntity>> signinWithFacebook();
+  Future<Either<Failure, String>> writeUserData({required UserEntity user});
 }
