@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
-import 'package:fruit_hub/core/services/firebase_auth_services.dart';
-import 'package:fruit_hub/core/services/firebase_firestore_service.dart';
-import 'package:fruit_hub/core/utilies/endpoints.dart';
-import 'package:fruit_hub/features/auth/data/user_model.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../../../core/error/firebase_exception.dart';
+import '../../../../core/services/firebase_auth_services.dart';
+import '../../../../core/services/firebase_firestore_service.dart';
+import '../../../../core/utilies/endpoints.dart';
+import '../../data/user_model.dart';
 import '../entities/user_entity.dart';
 import 'auth_repo.dart';
 
@@ -28,11 +28,30 @@ class AuthRepoImpl extends AuthRepo {
       final user = await firebaseAuthServices.signupUser(
           email: email, password: password);
       final userEntity = UserModel.fromUser(user);
-      await writeUserData(user: userEntity);
+
+      final result = await writeUserData(user: userEntity);
+      if (!result) {
+        await firebaseAuthServices.deleteUser();
+        throw ServiceException(
+            'لم يتم حفظ بيانات المستخدم بنجاح للاسف. برجاء المحاوله مره أخري');
+      }
       return right(userEntity);
     } on ServiceException catch (error) {
-      log('Exception in AuthrepoImpl.createUserWithEmailAndPassword() method ${error.toString()}');
+      log('Exception in AuthrepoImpl.createUserWithEmailAndPassword() method ${error.message}');
       return left(ServerFailure(error.message));
+    }
+  }
+
+  @override
+  Future<bool> writeUserData({required UserEntity user}) async {
+    try {
+      await firebaseFirestoreService.writeData(
+          path: Endpoints.writeUserData, data: user.toJson());
+      log('تم حفظ بيانات المستخدم بنجاح');
+      return true;
+    } on ServiceException catch (error) {
+      log('Exception in AuthrepoImpl.writeUserData() method ${error.message}');
+      return false;
     }
   }
 
@@ -59,21 +78,6 @@ class AuthRepoImpl extends AuthRepo {
     } catch (error) {
       log('Exception in AuthrepoImpl.signinWithGoogle() method ${error.toString()}');
       return left(ServerFailure('حدث خطأ ما برجاء المحاوله مره أخري.'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, String>> writeUserData(
-      {required UserEntity user}) async {
-    try {
-      log('new message');
-      log('رساله جديده');
-      await firebaseFirestoreService.writeData(
-          path: Endpoints.writeUserData, data: user.toJson());
-      log('تم حفظ بيانات المستخدم بنجاح');
-      return right('تم حفظ بيانات المستخدم بنجاح');
-    } on ServiceException catch (error) {
-      return left(ServerFailure(error.message));
     }
   }
 }
