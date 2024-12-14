@@ -66,4 +66,33 @@ abstract class Helper {
       ),
     );
   }
+
+  static late RegExp _regExp;
+
+  // method for make sure that the user enter a valid email.
+  static String? validateEmail(String? value) {
+    _regExp = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    if (value == null || value.isEmpty) {
+      return 'حقل الايميل مطلوب';
+    }
+    if (!_regExp.hasMatch(value)) {
+      return 'من فضلك أدخل ايميل صحيح';
+    }
+    return null;
+  }
+
+  // method for make sure that the user enter a valid password.
+  static String? validatePassword(String? value) {
+    _regExp = RegExp(
+        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@$%&*?])[a-zA-Z\d!@$%&*?]{8,}$');
+    if (value == null || value.isEmpty) {
+      return 'حقل كلمه السر مطلوب';
+    }
+    if (!_regExp.hasMatch(value)) {
+      return '''من فضلك ادخل كلمه سر صحيحه
+[حروف صغيره-حروف كبيره-ارقام-حروف خاصه
+-ان لا يقل عن ثمانيه حرف]''';
+    }
+    return null;
+  }
 }

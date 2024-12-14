@@ -9,12 +9,14 @@ class CustomTextFormPasswordField extends StatefulWidget {
   final String hint;
   final TextInputType inputType;
   final Function(String?)? onSaved;
+  final String? Function(String?)? validate;
 
   const CustomTextFormPasswordField({
     super.key,
     required this.hint,
     required this.inputType,
     this.onSaved,
+    this.validate,
   });
 
   @override
@@ -36,12 +38,13 @@ class _CustomTextFormPasswordFieldState
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'هذا الحقل مطلوب';
-        }
-        return null;
-      },
+      validator: widget.validate ??
+          (value) {
+            if (value == null || value.isEmpty) {
+              return 'هذا الحقل مطلوب';
+            }
+            return null;
+          },
       onSaved: widget.onSaved,
       keyboardType: widget.inputType,
       obscureText: _isObscured,

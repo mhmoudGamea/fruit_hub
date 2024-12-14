@@ -9,12 +9,14 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType inputType;
   final bool withSuffix;
   final Function(String?)? onSaved;
+  final String? Function(String?)? validate;
   const CustomTextFormField({
     super.key,
     required this.hint,
     required this.inputType,
     this.withSuffix = false,
     this.onSaved,
+    this.validate,
   });
 
   InputBorder inputBorder(double radius) {
@@ -28,12 +30,13 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'هذا الحقل مطلوب';
-        }
-        return null;
-      },
+      validator: validate ??
+          (value) {
+            if (value == null || value.isEmpty) {
+              return 'هذا الحقل مطلوب';
+            }
+            return null;
+          },
       onSaved: onSaved,
       keyboardType: inputType,
       cursorColor: AppColors.primaryColor,

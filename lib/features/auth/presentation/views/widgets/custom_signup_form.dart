@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub/core/utilies/helper.dart';
 
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_text_form_field.dart';
@@ -32,6 +33,7 @@ class CustomSignupForm extends StatelessWidget {
             onSaved: (p0) {
               signupCubit.setEmail = p0!;
             },
+            validate: (value) => Helper.validateEmail(value),
           ),
           const SizedBox(height: 16),
           CustomTextFormPasswordField(
@@ -40,6 +42,7 @@ class CustomSignupForm extends StatelessWidget {
             onSaved: (p0) {
               signupCubit.setPassword = p0!;
             },
+            validate: (value) => Helper.validatePassword(value),
           ),
           const SizedBox(height: 16),
           const CustomTermsAndCondition(
