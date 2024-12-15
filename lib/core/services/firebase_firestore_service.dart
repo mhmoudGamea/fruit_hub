@@ -3,10 +3,8 @@ import 'package:fruit_hub/core/error/firebase_exception.dart'
     show ServiceException;
 import 'package:get_it/get_it.dart';
 
-abstract class DatabaseService {
-  Future<void> writeData(
-      {required String path, required Map<String, dynamic> data});
-}
+import '../../features/auth/domain/entities/user_entity.dart';
+import 'database_service.dart';
 
 class FirebaseFirestoreService implements DatabaseService {
   static var firebaseFirestore = GetIt.instance<FirebaseFirestore>();
@@ -21,5 +19,11 @@ class FirebaseFirestoreService implements DatabaseService {
     } catch (error) {
       throw ServiceException(':( حدث خطأ ما. برجاء المحاوله مره أخري');
     }
+  }
+
+  @override
+  Future<UserEntity> readData(
+      {required String path, required String documentId}) async {
+    throw UnimplementedError();
   }
 }

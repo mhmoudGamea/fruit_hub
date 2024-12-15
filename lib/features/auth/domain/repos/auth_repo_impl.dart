@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
+import 'package:fruit_hub/features/auth/data/user_data.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../../../core/error/firebase_exception.dart';
@@ -27,14 +28,10 @@ class AuthRepoImpl extends AuthRepo {
     try {
       final user = await firebaseAuthServices.signupUser(
           email: email, password: password);
-      final userEntity = UserModel.fromUser(user);
+      final userEntity = UserEntity(email: email, name: name, uid: user.uid);
 
       final result = await writeUserData(user: userEntity);
-      if (!result) {
-        await firebaseAuthServices.deleteUser();
-        throw ServiceException(
-            'لم يتم حفظ بيانات المستخدم بنجاح للاسف. برجاء المحاوله مره أخري');
-      }
+      await deleteOperation(result);
       return right(userEntity);
     } on ServiceException catch (error) {
       log('Exception in AuthrepoImpl.createUserWithEmailAndPassword() method ${error.message}');
@@ -43,15 +40,40 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<bool> writeUserData({required UserEntity user}) async {
+  Future<UserData> writeUserData({required UserEntity user}) async {
     try {
       await firebaseFirestoreService.writeData(
           path: Endpoints.writeUserData, data: user.toJson());
       log('تم حفظ بيانات المستخدم بنجاح');
-      return true;
+      return UserData(status: true, message: 'تم حفظ بيانات المستخدم بنجاح');
     } on ServiceException catch (error) {
       log('Exception in AuthrepoImpl.writeUserData() method ${error.message}');
-      return false;
+      return UserData(status: false, message: error.message);
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> signinWithGoogle() async {
+    try {
+      final user = await firebaseAuthServices.signInWithGoogle();
+      final userEntity = UserModel.fromUser(user);
+
+      final result = await writeUserData(user: userEntity);
+      await deleteOperation(result);
+      return right(userEntity);
+    } on ServiceException catch (error) {
+      log('Exception in AuthrepoImpl.loginUserWithEmailAndPassword() method ${error.toString()}');
+      return left(ServerFailure(error.message));
+    } catch (error) {
+      log('Exception in AuthrepoImpl.signinWithGoogle() method ${error.toString()}');
+      return left(ServerFailure('حدث خطأ ما برجاء المحاوله مره أخري.'));
+    }
+  }
+
+  Future<void> deleteOperation(UserData result) async {
+    if (!result.status) {
+      await firebaseAuthServices.deleteUser();
+      throw ServiceException(result.message);
     }
   }
 
@@ -67,17 +89,6 @@ class AuthRepoImpl extends AuthRepo {
     } on ServiceException catch (error) {
       log('Exception in AuthrepoImpl.loginUserWithEmailAndPassword() method ${error.toString()}');
       return left(ServerFailure(error.message));
-    }
-  }
-
-  @override
-  Future<Either<Failure, UserEntity>> signinWithGoogle() async {
-    try {
-      final user = await firebaseAuthServices.signInWithGoogle();
-      return right(UserModel.fromUser(user));
-    } catch (error) {
-      log('Exception in AuthrepoImpl.signinWithGoogle() method ${error.toString()}');
-      return left(ServerFailure('حدث خطأ ما برجاء المحاوله مره أخري.'));
     }
   }
 }
