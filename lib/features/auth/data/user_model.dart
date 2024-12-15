@@ -10,4 +10,10 @@ class UserModel extends UserEntity {
         name: user.displayName,
         uid: user.uid,
       );
+
+  factory UserModel.fromDocument(Map<String, dynamic> document) => UserModel(
+        email: document['email'],
+        name: document['name'],
+        uid: document['uid'],
+      );
 }

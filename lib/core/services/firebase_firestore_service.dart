@@ -1,19 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fruit_hub/core/error/firebase_exception.dart'
-    show ServiceException;
 import 'package:get_it/get_it.dart';
 
-import '../../features/auth/domain/entities/user_entity.dart';
+import '../error/firebase_exception.dart' show ServiceException;
 import 'database_service.dart';
 
 class FirebaseFirestoreService implements DatabaseService {
   static var firebaseFirestore = GetIt.instance<FirebaseFirestore>();
 
   @override
-  Future<void> writeData(
-      {required String path, required Map<String, dynamic> data}) async {
+  Future<void> writeData({
+    required String path,
+    required Map<String, dynamic> data,
+    String? documentId,
+  }) async {
     try {
-      await firebaseFirestore.collection(path).add(data);
+      if (documentId != null) {
+        await firebaseFirestore.collection(path).doc(documentId).set(data);
+      } else {
+        await firebaseFirestore.collection(path).add(data);
+      }
     } on FirebaseException catch (error) {
       throw ServiceException.fromFirestore(code: error.code);
     } catch (error) {
@@ -22,8 +27,16 @@ class FirebaseFirestoreService implements DatabaseService {
   }
 
   @override
-  Future<UserEntity> readData(
+  Future<Map<String, dynamic>> readData(
       {required String path, required String documentId}) async {
-    throw UnimplementedError();
+    final result =
+        await firebaseFirestore.collection(path).doc(documentId).get();
+    return result.data()!;
+  }
+
+  @override
+  Future<bool> isDataExist({required String path, required String uid}) async {
+    final result = await firebaseFirestore.collection(path).doc(uid).get();
+    return result.exists;
   }
 }

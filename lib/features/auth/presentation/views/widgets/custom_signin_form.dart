@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub/core/utilies/helper.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/config/app_colors.dart';
@@ -28,7 +27,6 @@ class CustomSigninForm extends StatelessWidget {
             onSaved: (p0) {
               siginCubit.setEmail = p0!;
             },
-            validate: (value) => Helper.validateEmail(value),
           ),
           const SizedBox(height: 16),
           CustomTextFormPasswordField(
@@ -37,7 +35,6 @@ class CustomSigninForm extends StatelessWidget {
             onSaved: (p0) {
               siginCubit.setPassword = p0!;
             },
-            validate: (value) => Helper.validatePassword(value),
           ),
           const SizedBox(height: 16),
           Align(
