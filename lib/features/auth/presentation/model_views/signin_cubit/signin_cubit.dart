@@ -4,10 +4,10 @@ import 'package:get_it/get_it.dart';
 
 import '../../../domain/repos/auth_repo.dart';
 import '../../../domain/repos/auth_repo_impl.dart';
-import 'login_state.dart';
+import 'signin_state.dart';
 
-class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginInitial());
+class SigninCubit extends Cubit<SigninState> {
+  SigninCubit() : super(SigninInitial());
 
   /// validation part in form
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -44,28 +44,28 @@ class LoginCubit extends Cubit<LoginState> {
     return _password;
   }
 
-  /// handling loging user part
+  /// handling signing user part
   final AuthRepo _authRepo = GetIt.instance<AuthRepoImpl>();
-  Future<void> logingUser({
+  Future<void> signingUser({
     required String email,
     required String password,
   }) async {
-    emit(LoginLoading());
+    emit(SigninLoading());
     final data = await _authRepo.loginUserWithEmailAndPassword(
         email: email, password: password);
     data.fold((error) {
-      emit(LoginFailure(error: error.message));
+      emit(SigninFailure(error: error.message));
     }, (userEntity) {
-      emit(LoginSuccess(userEntity: userEntity));
+      emit(SigninSuccess(userEntity: userEntity));
     });
   }
 
-  /// this method will be triggered when login button is pressed
-  /// it use logingUser method
-  void signinUser() {
+  /// this method will be triggered when Signin button is pressed
+  /// it use signingUser method
+  Future<void> signinUser() async {
     if (getFormKey.currentState!.validate()) {
       getFormKey.currentState!.save();
-      logingUser(
+      await signingUser(
         email: getEmail,
         password: getPassword,
       );
@@ -74,25 +74,25 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  /// this method will be triggered when login with google button is pressed
+  /// this method will be triggered when Signing with google button is pressed
   Future<void> signinWithGoogle() async {
-    emit(LoginLoading());
+    emit(SigninLoading());
     final data = await _authRepo.signinWithGoogle();
     data.fold((error) {
-      emit(LoginFailure(error: error.message));
+      emit(SigninFailure(error: error.message));
     }, (userEntity) {
-      emit(LoginSuccess(userEntity: userEntity));
+      emit(SigninSuccess(userEntity: userEntity));
     });
   }
 
-  // /// this method will be triggered when login with facebook button is pressed
+  // /// this method will be triggered when Signing with facebook button is pressed
   // Future<void> signinWithFacebook() async {
-  //   emit(LoginLoading());
+  //   emit(SigninLoading());
   //   final data = await _authRepo.signinWithFacebook();
   //   data.fold((error) {
-  //     emit(LoginFailure(error: error.message));
+  //     emit(SigninFailure(error: error.message));
   //   }, (userEntity) {
-  //     emit(LoginSuccess(userEntity: userEntity));
+  //     emit(SigninSuccess(userEntity: userEntity));
   //   });
   // }
 }

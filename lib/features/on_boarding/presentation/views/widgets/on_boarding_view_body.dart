@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/services/preferences.dart';
 import '../../../../../core/widgets/custom_button.dart';
-import '../../../../auth/presentation/views/login_view.dart';
+import '../../../../auth/presentation/views/signin_view.dart';
 import '../../view_model/page_controller/controller_cubit.dart';
 import '../../view_model/page_controller/controller_state.dart';
 import 'on_boarding_page_view.dart';
@@ -51,7 +51,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 data: 'ابدأ الان',
                 onPressed: () {
                   Preferences.setOnBoardingStatus();
-                  GoRouter.of(context).pushReplacement(LoginView.rn);
+                  GoRouter.of(context).pushReplacement(SigninView.rn);
                 },
               ),
             ),

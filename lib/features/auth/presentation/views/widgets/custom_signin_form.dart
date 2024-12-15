@@ -7,7 +7,8 @@ import '../../../../../core/config/app_style.dart';
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_text_form_field.dart';
 import '../../../../../core/widgets/custom_text_form_password_field.dart';
-import '../../model_views/login_cubit/login_cubit.dart';
+import '../../../../home/presentation/views/home_view.dart';
+import '../../model_views/signin_cubit/signin_cubit.dart';
 import '../forget_password_view.dart';
 
 class CustomSigninForm extends StatelessWidget {
@@ -15,7 +16,7 @@ class CustomSigninForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final siginCubit = BlocProvider.of<LoginCubit>(context);
+    final siginCubit = BlocProvider.of<SigninCubit>(context);
     return Form(
       key: siginCubit.getFormKey,
       autovalidateMode: siginCubit.getAutoValidate,
@@ -51,7 +52,9 @@ class CustomSigninForm extends StatelessWidget {
           const SizedBox(height: 33),
           CustomButton(
               onPressed: () {
-                siginCubit.signinUser();
+                siginCubit
+                    .signinUser()
+                    .then((_) => GoRouter.of(context).push(HomeView.rn));
               },
               data: 'تسجيل دخول'),
         ],

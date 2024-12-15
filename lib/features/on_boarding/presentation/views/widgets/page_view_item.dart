@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/config/app_style.dart';
 import '../../../../../core/services/preferences.dart';
-import '../../../../auth/presentation/views/login_view.dart';
+import '../../../../auth/presentation/views/signin_view.dart';
 import '../../view_model/page_controller/controller_cubit.dart';
 import '../../view_model/page_controller/controller_state.dart';
 
@@ -65,7 +65,7 @@ class PageViewItem extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   Preferences.setOnBoardingStatus();
-                  GoRouter.of(context).pushReplacement(LoginView.rn);
+                  GoRouter.of(context).pushReplacement(SigninView.rn);
                 },
                 child: Text(
                   'تخط',

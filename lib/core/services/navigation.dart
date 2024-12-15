@@ -1,8 +1,9 @@
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/views/forget_password_view.dart';
-import '../../features/auth/presentation/views/login_view.dart';
+import '../../features/auth/presentation/views/signin_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
+import '../../features/home/presentation/views/home_view.dart';
 import '../../features/on_boarding/presentation/views/on_boarding_view.dart';
 import '../../features/splash/presentation/views/splash_view.dart';
 
@@ -22,8 +23,8 @@ abstract class Navigation {
         builder: (context, state) => const OnBoardingView(),
       ),
       GoRoute(
-        path: LoginView.rn,
-        builder: (context, state) => const LoginView(),
+        path: SigninView.rn,
+        builder: (context, state) => const SigninView(),
       ),
       GoRoute(
         path: SignupView.rn,
@@ -32,6 +33,10 @@ abstract class Navigation {
       GoRoute(
         path: ForgetPasswordView.rn,
         builder: (context, state) => const ForgetPasswordView(),
+      ),
+      GoRoute(
+        path: HomeView.rn,
+        builder: (context, state) => const HomeView(),
       ),
     ],
   );

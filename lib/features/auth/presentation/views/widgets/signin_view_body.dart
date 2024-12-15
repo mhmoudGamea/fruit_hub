@@ -7,26 +7,27 @@ import 'package:go_router/go_router.dart';
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/utilies/constants.dart';
 import '../../../../../core/utilies/helper.dart';
-import '../../model_views/login_cubit/login_cubit.dart';
-import '../../model_views/login_cubit/login_state.dart';
+import '../../../../home/presentation/views/home_view.dart';
+import '../../model_views/signin_cubit/signin_cubit.dart';
+import '../../model_views/signin_cubit/signin_state.dart';
 import '../signup_view.dart';
 import 'custom_account_prompt.dart';
 import 'custom_divider.dart';
 import 'custom_signin_form.dart';
 import 'custom_social_button.dart';
 
-class LoginViewBody extends StatelessWidget {
-  const LoginViewBody({super.key});
+class SigninViewBody extends StatelessWidget {
+  const SigninViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginCubit, LoginState>(
+    return BlocConsumer<SigninCubit, SigninState>(
       listener: (context, state) {
-        if (state is LoginSuccess) {
+        if (state is SigninSuccess) {
           Helper.successMessage(context,
               message: 'لقد قمت بتسجيل الدخول بنجاح.');
         }
-        if (state is LoginFailure) {
+        if (state is SigninFailure) {
           Helper.errorMessage(context, message: state.error);
         }
       },
@@ -36,7 +37,7 @@ class LoginViewBody extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: authViewPadding),
             child: Column(
               children: [
-                state is LoginLoading
+                state is SigninLoading
                     ? LinearProgressIndicator(color: AppColors.darkPrimaryColor)
                     : const SizedBox(height: 0),
                 const SizedBox(height: 24),
@@ -54,7 +55,10 @@ class LoginViewBody extends StatelessWidget {
                 const SizedBox(height: 31),
                 CustomSocialButton(
                   onPressed: () {
-                    context.read<LoginCubit>().signinWithGoogle();
+                    context
+                        .read<SigninCubit>()
+                        .signinWithGoogle()
+                        .then((_) => GoRouter.of(context).push(HomeView.rn));
                   },
                   text: 'تسجيل بواسطة جوجل',
                   socialMediaLogo: 'assets/images/google.svg',
@@ -69,7 +73,7 @@ class LoginViewBody extends StatelessWidget {
                 if (Platform.isIOS) const SizedBox(height: 16),
                 CustomSocialButton(
                   onPressed: () {
-                    // context.read<LoginCubit>().signinWithFacebook();
+                    // context.read<SigninCubit>().signinWithFacebook();
                   },
                   text: 'تسجيل بواسطة فيسبوك',
                   socialMediaLogo: 'assets/images/facebook.svg',
