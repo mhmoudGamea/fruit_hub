@@ -65,6 +65,8 @@ class _SplashViewBodyState extends State<SplashViewBody>
     );
   }
 
+  /// if user is already signed in, ther are redirected to home otherwise
+  /// he 'll be redirect to signin
   _userState() {
     final firebaseAuth = GetIt.instance<FirebaseAuth>();
     if (firebaseAuth.currentUser != null) {
