@@ -67,12 +67,15 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   /// if user is already signed in, ther are redirected to home otherwise
   /// he 'll be redirect to signin
-  _userState() {
+  void _userState() {
     final firebaseAuth = GetIt.instance<FirebaseAuth>();
-    if (firebaseAuth.currentUser != null) {
-      return GoRouter.of(context).pushReplacement(HomeView.rn);
-    }
-    return GoRouter.of(context).pushReplacement(SigninView.rn);
+    firebaseAuth.userChanges().listen((user) {
+      if (user != null) {
+        GoRouter.of(context).pushReplacement(HomeView.rn);
+      } else {
+        GoRouter.of(context).pushReplacement(SigninView.rn);
+      }
+    });
   }
 
   @override

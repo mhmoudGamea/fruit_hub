@@ -20,7 +20,7 @@ class SignupViewBody extends StatelessWidget {
         if (state is SignupSuccess) {
           Helper.successMessage(context,
               message: 'تم انشاء حساب جديد لك بنجاح.');
-          GoRouter.of(context).pop();
+          // GoRouter.of(context).pop();
         }
         if (state is SignupFailure) {
           Helper.errorMessage(context, message: state.error);
