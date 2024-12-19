@@ -17,6 +17,10 @@ abstract class AppStyle {
     fontWeight: FontWeight.w700,
   );
   // font 16
+  static const fontregular16 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  );
   static const fontsemi16 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,

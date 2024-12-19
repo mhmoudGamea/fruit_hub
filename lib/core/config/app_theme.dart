@@ -13,7 +13,7 @@ abstract class AppTheme {
       backgroundColor: AppColors.white,
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: AppColors.white,
+      backgroundColor: Colors.transparent,
       selectedItemColor: AppColors.primaryColor,
       selectedLabelStyle: TextStyle(
         color: AppColors.primaryColor,
@@ -23,7 +23,8 @@ abstract class AppTheme {
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(330, 54),
         backgroundColor: AppColors.primaryColor,
-        textStyle: AppStyle.fontbold16.copyWith(color: AppColors.white),
+        textStyle: AppStyle.fontbold16
+            .copyWith(color: AppColors.white, fontFamily: 'cairo'),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
