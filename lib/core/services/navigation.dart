@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/views/forget_password_view.dart';
 import '../../features/auth/presentation/views/signin_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
+import '../../features/best_seller/presentation/views/best_seller_view.dart';
 import '../../features/home/presentation/views/home_view.dart';
 import '../../features/on_boarding/presentation/views/on_boarding_view.dart';
 import '../../features/splash/presentation/views/splash_view.dart';
@@ -38,6 +39,10 @@ abstract class Navigation {
         path: HomeView.rn,
         builder: (context, state) => const HomeView(),
       ),
+      GoRoute(
+        path: BestSellerView.rn,
+        builder: (context, state) => const BestSellerView(),
+      )
     ],
   );
 }

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub/core/services/preferences.dart';
+import 'package:fruit_hub/core/services/serialization_service.dart';
+import 'package:fruit_hub/core/utilies/constants.dart';
+import 'package:fruit_hub/features/auth/data/user_model.dart';
+import 'package:fruit_hub/features/auth/domain/entities/user_entity.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../config/app_colors.dart';
@@ -94,5 +99,15 @@ abstract class Helper {
 -ان لا يقل عن ثمانيه حرف]''';
     }
     return null;
+  }
+
+  /// method used to get user data from shared prefrences which is stored as encoded [Map<String, dynamic>]
+  /// then i decode it to [UserEntity] object to get the user name
+  /// then display it in the home screen appBar
+  static UserEntity getUserDataFromSharedPrefrences() {
+    String encodedUserData = Preferences.getValue(key: kUserData);
+    Map<String, dynamic> decodedUserData =
+        SerializationService.deserialize<Map<String, dynamic>>(encodedUserData);
+    return UserModel.fromJson(decodedUserData);
   }
 }

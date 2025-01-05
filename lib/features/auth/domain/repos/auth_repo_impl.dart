@@ -1,6 +1,9 @@
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
+import 'package:fruit_hub/core/services/preferences.dart';
+import 'package:fruit_hub/core/services/serialization_service.dart';
+import 'package:fruit_hub/core/utilies/constants.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../../../core/error/firebase_exception.dart';
@@ -28,13 +31,30 @@ class AuthRepoImpl extends AuthRepo {
     try {
       final user = await firebaseAuthServices.signupUser(
           email: email, password: password);
-      final userEntity = UserEntity(email: email, name: name, uid: user.uid);
+      final userModel = UserModel(email: email, name: name, uid: user.uid);
 
-      final result = await writeUserData(user: userEntity);
+      final result = await writeUserData(user: userModel);
       await deleteOperation(result);
-      return right(userEntity);
+      return right(userModel);
     } on ServiceException catch (error) {
       log('Exception in AuthrepoImpl.createUserWithEmailAndPassword() method ${error.message}');
+      return left(ServerFailure(error.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> loginUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final user = await firebaseAuthServices.loginUser(
+          email: email, password: password);
+      final userEntity = await readUserData(uid: user.uid);
+      await saveUserDataInSharedPrefrences(user: userEntity);
+      return right(userEntity);
+    } on ServiceException catch (error) {
+      log('Exception in AuthrepoImpl.loginUserWithEmailAndPassword() method ${error.toString()}');
       return left(ServerFailure(error.message));
     }
   }
@@ -64,35 +84,13 @@ class AuthRepoImpl extends AuthRepo {
     }
   }
 
-  Future<void> deleteOperation(UserData result) async {
-    if (!result.status) {
-      await firebaseAuthServices.deleteUser();
-      throw ServiceException(result.message);
-    }
-  }
-
-  @override
-  Future<Either<Failure, UserEntity>> loginUserWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
-    try {
-      final user = await firebaseAuthServices.loginUser(
-          email: email, password: password);
-      final userEntity = await readUserData(uid: user.uid);
-      return right(userEntity);
-    } on ServiceException catch (error) {
-      log('Exception in AuthrepoImpl.loginUserWithEmailAndPassword() method ${error.toString()}');
-      return left(ServerFailure(error.message));
-    }
-  }
-
   @override
   Future<UserData> writeUserData({required UserEntity user}) async {
     try {
       await firebaseFirestoreService.writeData(
         path: Endpoints.writeUserData,
-        data: user.toJson(),
+        // i get userEntity convert it to userModel then convert it to json
+        data: UserModel.fromUserEntity(user).toJson(),
         documentId: user.uid,
       );
       log('تم حفظ بيانات المستخدم بنجاح');
@@ -108,5 +106,22 @@ class AuthRepoImpl extends AuthRepo {
     final result = await firebaseFirestoreService.readData(
         path: Endpoints.readUserData, documentId: uid);
     return UserModel.fromDocument(result);
+  }
+
+  Future<void> deleteOperation(UserData result) async {
+    if (!result.status) {
+      await firebaseAuthServices.deleteUser();
+      throw ServiceException(result.message);
+    }
+  }
+
+  @override
+  Future<void> saveUserDataInSharedPrefrences(
+      {required UserEntity user}) async {
+    final encodedUserData =
+        SerializationService.serialize<Map<String, dynamic>>(
+            UserModel.fromUserEntity(user).toJson());
+    // save user data in shared prefrences
+    await Preferences.setValue(key: kUserData, value: encodedUserData);
   }
 }

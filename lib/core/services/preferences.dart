@@ -23,7 +23,8 @@ abstract class Preferences {
   }
 
   // method for set value in sharedPreferences
-  static void setValue({required String key, required dynamic value}) async {
+  static Future<void> setValue(
+      {required String key, required dynamic value}) async {
     final pref = ServiceLocator.getIt<SharedPreferences>();
     if (value is bool) {
       await pref.setBool(key, value);

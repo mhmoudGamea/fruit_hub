@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -57,12 +59,15 @@ class SigninCubit extends Cubit<SigninState> {
       emit(SigninFailure(error: error.message));
     }, (userEntity) {
       emit(SigninSuccess(userEntity: userEntity));
+      //TODO: save user data in shared prefrences
+      _authRepo.saveUserDataInSharedPrefrences(user: userEntity);
+      log('user data saved in shared prefrences');
     });
   }
 
   /// this method will be triggered when Signin button is pressed
   /// it use signingUser method
-  Future<void> signinUser() async {
+  Future<void> validateSigninUser() async {
     if (getFormKey.currentState!.validate()) {
       getFormKey.currentState!.save();
       await signingUser(
@@ -84,15 +89,4 @@ class SigninCubit extends Cubit<SigninState> {
       emit(SigninSuccess(userEntity: userEntity));
     });
   }
-
-  // /// this method will be triggered when Signing with facebook button is pressed
-  // Future<void> signinWithFacebook() async {
-  //   emit(SigninLoading());
-  //   final data = await _authRepo.signinWithFacebook();
-  //   data.fold((error) {
-  //     emit(SigninFailure(error: error.message));
-  //   }, (userEntity) {
-  //     emit(SigninSuccess(userEntity: userEntity));
-  //   });
-  // }
 }

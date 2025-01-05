@@ -53,7 +53,7 @@ class CustomSigninForm extends StatelessWidget {
           CustomButton(
               onPressed: () {
                 siginCubit
-                    .signinUser()
+                    .validateSigninUser()
                     .then((_) => GoRouter.of(context).push(HomeView.rn));
               },
               data: 'تسجيل دخول'),

@@ -15,8 +15,10 @@ class FirebaseFirestoreService implements DatabaseService {
   }) async {
     try {
       if (documentId != null) {
+        // send document id in case of writing user uid [Authentication]
         await firebaseFirestore.collection(path).doc(documentId).set(data);
       } else {
+        // send document id in case of adding ordinary data
         await firebaseFirestore.collection(path).add(data);
       }
     } on FirebaseException catch (error) {
