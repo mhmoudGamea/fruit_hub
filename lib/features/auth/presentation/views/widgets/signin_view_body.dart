@@ -35,7 +35,7 @@ class SigninViewBody extends StatelessWidget {
       builder: (context, state) {
         return SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: authViewPadding),
+            padding: const EdgeInsets.symmetric(horizontal: kAuthViewPadding),
             child: Column(
               children: [
                 state is SigninLoading

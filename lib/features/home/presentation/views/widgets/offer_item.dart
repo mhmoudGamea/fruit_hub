@@ -12,7 +12,7 @@ class OfferItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width - (2 * authViewPadding),
+      width: MediaQuery.of(context).size.width - (2 * kAuthViewPadding),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
       ),

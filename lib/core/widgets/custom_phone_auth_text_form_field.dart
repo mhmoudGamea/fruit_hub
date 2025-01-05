@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_hub/core/config/app_colors.dart';
-import 'package:fruit_hub/core/config/app_style.dart';
-import 'package:fruit_hub/core/utilies/constants.dart';
 
-class CustomTextFormField extends StatelessWidget {
-  final String hint;
-  final TextInputType inputType;
-  final Function(String?)? onSaved;
-  final String? Function(String?)? validate;
-  const CustomTextFormField({
+import '../config/app_colors.dart';
+import '../config/app_style.dart';
+import '../utilies/constants.dart';
+
+class CustomPhoneAuthTextFormField extends StatelessWidget {
+  const CustomPhoneAuthTextFormField({
     super.key,
     required this.hint,
     required this.inputType,
     this.onSaved,
     this.validate,
+    this.controller,
+    this.maxLength,
+    this.focusNode,
+    this.onFieldSubmitted,
   });
+
+  final String hint;
+  final TextInputType inputType;
+  final Function(String?)? onSaved;
+  final String? Function(String?)? validate;
+  final TextEditingController? controller;
+  final int? maxLength;
+  final FocusNode? focusNode;
+  final Function(String)? onFieldSubmitted;
 
   InputBorder inputBorder(double radius) {
     return OutlineInputBorder(
@@ -27,6 +37,8 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
+      focusNode: focusNode,
       validator: validate ??
           (value) {
             if (value == null || value.isEmpty) {
@@ -35,8 +47,10 @@ class CustomTextFormField extends StatelessWidget {
             return null;
           },
       onSaved: onSaved,
+      onFieldSubmitted: onFieldSubmitted,
       keyboardType: inputType,
       cursorColor: AppColors.primaryColor,
+      maxLength: maxLength,
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: AppStyle.fontbold13.copyWith(

@@ -10,15 +10,16 @@ class ForgetPasswordViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: authViewPadding),
+      padding: const EdgeInsets.symmetric(horizontal: kAuthViewPadding),
       child: Column(
         children: [
           const SizedBox(height: 24),
           SizedBox(
-            width: MediaQuery.of(context).size.width - (authViewPadding * 2),
+            width: MediaQuery.of(context).size.width - (kAuthViewPadding * 2),
             child: const Text(
               'لا تقلق ، ما عليك سوى كتابة رقم هاتفك وسنرسل رمز التحقق.',
               style: AppStyle.fontsemi16,
+              textAlign: TextAlign.center,
             ),
           ),
           const SizedBox(height: 31),
