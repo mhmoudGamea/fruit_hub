@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/views/forget_password_view.dart';
+import '../../features/auth/presentation/views/phone_auth_view.dart';
 import '../../features/auth/presentation/views/signin_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
 import '../../features/best_seller/presentation/views/best_seller_view.dart';
@@ -34,6 +35,10 @@ abstract class Navigation {
       GoRoute(
         path: ForgetPasswordView.rn,
         builder: (context, state) => const ForgetPasswordView(),
+      ),
+      GoRoute(
+        path: PhoneAuthView.rn,
+        builder: (context, state) => const PhoneAuthView(),
       ),
       GoRoute(
         path: HomeView.rn,

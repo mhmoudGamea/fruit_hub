@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub/features/auth/presentation/views/phone_auth_view.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/config/app_colors.dart';
@@ -62,6 +63,14 @@ class SigninViewBody extends StatelessWidget {
                   },
                   text: 'تسجيل بواسطة جوجل',
                   socialMediaLogo: 'assets/images/google.svg',
+                ),
+                const SizedBox(height: 16),
+                CustomSocialButton(
+                  onPressed: () {
+                    GoRouter.of(context).push(PhoneAuthView.rn);
+                  },
+                  text: 'تسجيل الدخول بواسطه الهاتف',
+                  socialMediaLogo: 'assets/images/phone.svg',
                 ),
                 const SizedBox(height: 16),
                 if (Platform.isIOS)

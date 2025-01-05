@@ -85,6 +85,12 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
+  Future<Either<Failure, UserEntity>> signinWithPhone() {
+    // TODO: implement signinWithPhone
+    throw UnimplementedError();
+  }
+
+  @override
   Future<UserData> writeUserData({required UserEntity user}) async {
     try {
       await firebaseFirestoreService.writeData(

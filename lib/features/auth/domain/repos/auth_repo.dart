@@ -12,9 +12,10 @@ abstract class AuthRepo {
       {required String email, required String password});
 
   Future<Either<Failure, UserEntity>> signinWithGoogle();
-  // Future<Either<Failure, UserEntity>> signinWithFacebook();
+  Future<Either<Failure, UserEntity>> signinWithPhone();
   Future<UserData> writeUserData({required UserEntity user});
   Future<UserEntity> readUserData({required String uid});
 
+  /// this will be used after successful login operation
   Future<void> saveUserDataInSharedPrefrences({required UserEntity user});
 }
