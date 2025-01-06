@@ -80,9 +80,7 @@ class OtpViewBody extends StatelessWidget {
               const SizedBox(height: 29),
               CustomButton(
                 onPressed: () {
-                  // phoneAuthCubit.validate(context);
                   otpCodeCubit.verifyOtpCode(credentials);
-                  // log(otp.toString());
                 },
                 data: 'تحقق من الرمز',
               ),

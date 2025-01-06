@@ -1,11 +1,16 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub/core/services/firebase_firestore_service.dart';
 import 'package:fruit_hub/features/auth/data/otp_model.dart';
+import 'package:fruit_hub/features/auth/data/user_model.dart';
+import 'package:fruit_hub/features/auth/domain/entities/user_entity.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../../../core/services/preferences.dart';
+import '../../../../../core/services/serialization_service.dart';
+import '../../../../../core/utilies/constants.dart';
+import '../../../../../core/utilies/endpoints.dart';
 import 'otp_code_state.dart';
 
 class OtpCodeCubit extends Cubit<OtpCodeState> {
@@ -33,6 +38,14 @@ class OtpCodeCubit extends Cubit<OtpCodeState> {
     return sms;
   }
 
+  Future<void> saveUserDataInSharedPrefrences(UserEntity user) async {
+    final encodedUserData =
+        SerializationService.serialize<Map<String, dynamic>>(
+            UserModel.fromUserEntity(user).toJson());
+    // save user data in shared prefrences
+    await Preferences.setValue(key: kUserData, value: encodedUserData);
+  }
+
   Future<void> verifyOtpCode(OtpModel otpModel) async {
     emit(OtpCodeLoading());
     final smsCode = getSmsCode();
@@ -50,13 +63,23 @@ class OtpCodeCubit extends Cubit<OtpCodeState> {
             await auth.signInWithCredential(credential);
         if (userCredential.user != null) {
           emit(OtpCodeSuccess());
+          FirebaseFirestoreService firestoreService =
+              GetIt.instance<FirebaseFirestoreService>();
+          UserEntity userEntity = UserEntity(
+            email: '',
+            name: '',
+            uid: userCredential.user!.uid,
+          );
+          firestoreService.writeData(
+              path: Endpoints.writeUserData,
+              data: UserModel.fromUserEntity(userEntity).toJson(),
+              documentId: userCredential.user!.uid);
+          await saveUserDataInSharedPrefrences(userEntity);
         } else {
-          log('login failed 0');
           emit(OtpCodeError(
               'رمز التحقق الذي أدخلته غير صحيح من فضلك حاول مرة أخرى'));
         }
       } catch (e) {
-        log('login failed 1');
         emit(OtpCodeError(
             'رمز التحقق الذي أدخلته غير صحيح من فضلك حاول مرة أخرى'));
       }
