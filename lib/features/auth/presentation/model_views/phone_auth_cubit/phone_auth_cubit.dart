@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub/core/utilies/helper.dart';
+import 'package:fruit_hub/features/auth/domain/repos/phone_auth_repo/phone_auth_repo.dart';
+import 'package:fruit_hub/features/auth/domain/repos/phone_auth_repo/phone_auth_repo_impl.dart';
+import 'package:get_it/get_it.dart';
 
 import 'phone_auth_state.dart';
 
@@ -21,5 +25,44 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
 
   set setAutoValidate(AutovalidateMode auto) {
     _autovalidateMode = auto;
+  }
+
+  final PhoneAuthRepo _phoneAuthRepo = GetIt.instance<PhoneAuthRepoImpl>();
+  Future<void> sendingOTP({required String number}) async {
+    emit(PhoneAuthLoading());
+    _phoneAuthRepo.verifyPhoneNumber(number);
+  }
+
+  void validate(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      if (notValidCountryCode()) {
+        Helper.errorMessage(context,
+            message: 'كود الدولة غير صحيح يجب أن يتكون من 3 أرقام');
+      } else if (notValidPhoneNumber()) {
+        Helper.errorMessage(context,
+            message: 'رقم الهاتف غير صحيح يجب أن يتكون من 10 أرقام');
+      } else {
+        _formKey.currentState!.save();
+        final number =
+            '${_countryCodeController.text}${_phoneNumberController.text}';
+        await sendingOTP(number: number);
+      }
+    } else {
+      _autovalidateMode = AutovalidateMode.always;
+    }
+  }
+
+  bool notValidPhoneNumber() {
+    if (_phoneNumberController.text.length != 10) {
+      return true;
+    }
+    return false;
+  }
+
+  bool notValidCountryCode() {
+    if (_countryCodeController.text.length != 3) {
+      return true;
+    }
+    return false;
   }
 }

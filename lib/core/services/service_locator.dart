@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fruit_hub/core/services/firebase_auth_services.dart';
 import 'package:fruit_hub/core/services/firebase_firestore_service.dart';
+import 'package:fruit_hub/features/auth/domain/repos/phone_auth_repo/phone_auth_repo.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../features/auth/domain/repos/auth_repo_impl.dart';
+import '../../features/auth/domain/repos/phone_auth_repo/phone_auth_repo_impl.dart';
 
 abstract class ServiceLocator {
   static final getIt = GetIt.instance;
@@ -22,5 +24,6 @@ abstract class ServiceLocator {
       firebaseAuthServices: getIt.get<FirebaseAuthServices>(),
       firebaseFirestoreService: getIt.get<FirebaseFirestoreService>(),
     ));
+    getIt.registerSingleton<PhoneAuthRepoImpl>(PhoneAuthRepoImpl());
   }
 }

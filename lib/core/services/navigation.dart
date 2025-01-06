@@ -1,3 +1,4 @@
+import 'package:fruit_hub/features/auth/presentation/views/otp_view.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/views/forget_password_view.dart';
@@ -39,6 +40,10 @@ abstract class Navigation {
       GoRoute(
         path: PhoneAuthView.rn,
         builder: (context, state) => const PhoneAuthView(),
+      ),
+      GoRoute(
+        path: OtpView.rn,
+        builder: (context, state) => const OtpView(),
       ),
       GoRoute(
         path: HomeView.rn,

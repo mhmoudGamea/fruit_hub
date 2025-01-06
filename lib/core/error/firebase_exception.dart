@@ -45,4 +45,32 @@ class ServiceException extends FirebaseException {
         return ServiceException('حدث خطأ ما برجاء المحاوله مره أخري.');
     }
   }
+  factory ServiceException.fromPhoneAuth({required String code}) {
+    switch (code) {
+      case 'invalid-phone-number':
+        return ServiceException('رقم الهاتف غير صحيح');
+      case 'session-expired':
+        return ServiceException('انتهت صلاحية الجلسة');
+      case 'quota-exceeded':
+        return ServiceException('تم تجاوز الحد الأقصى للمحاولات');
+      case 'missing-verification-code':
+        return ServiceException('كود التحقق مفقود');
+      case 'invalid-verification-code':
+        return ServiceException('كود التحقق غير صحيح');
+      case 'invalid-verification-id':
+        return ServiceException('رقم التحقق غير صحيح');
+      case 'captcha-check-failed':
+        return ServiceException('فشل التحقق من الكابتشا');
+      case 'app-not-authorized':
+        return ServiceException('التطبيق غير مصرح به');
+      case 'missing-app-credential':
+        return ServiceException('بيانات التطبيق مفقودة');
+      case 'invalid-app-credential':
+        return ServiceException('بيانات التطبيق غير صحيحة');
+      case 'missing-verification-id':
+        return ServiceException('رقم التحقق مفقود');
+      default:
+        return ServiceException('حدث خطأ ما برجاء المحاوله مره أخري.');
+    }
+  }
 }
