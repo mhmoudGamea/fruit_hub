@@ -1,3 +1,4 @@
+import 'package:fruit_hub/features/auth/data/otp_model.dart';
 import 'package:fruit_hub/features/auth/presentation/views/otp_view.dart';
 import 'package:go_router/go_router.dart';
 
@@ -43,7 +44,8 @@ abstract class Navigation {
       ),
       GoRoute(
         path: OtpView.rn,
-        builder: (context, state) => const OtpView(),
+        builder: (context, state) =>
+            OtpView(arguments: state.extra as OtpModel),
       ),
       GoRoute(
         path: HomeView.rn,

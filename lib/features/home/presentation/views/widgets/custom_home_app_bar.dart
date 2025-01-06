@@ -19,7 +19,7 @@ class CustomHomeAppBar extends StatelessWidget {
         ),
       ),
       subtitle: Text(
-        Helper.getUserDataFromSharedPrefrences().name!,
+        Helper.getUserDataFromSharedPrefrences()?.name ?? 'غير معروف',
         style: AppStyle.fontbold16,
       ),
       leading: Container(

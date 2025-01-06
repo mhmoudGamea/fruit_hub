@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/utilies/helper.dart';
@@ -28,9 +30,16 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
   }
 
   final PhoneAuthRepo _phoneAuthRepo = GetIt.instance<PhoneAuthRepoImpl>();
-  Future<void> sendingOTP({required String number}) async {
+  Future<void> sendingOTP(
+      {required BuildContext context, required String number}) async {
     emit(PhoneAuthLoading());
-    _phoneAuthRepo.verifyPhoneNumber(number);
+    try {
+      await _phoneAuthRepo.verifyPhoneNumber(context, number);
+      emit(PhoneAuthSuccess());
+    } catch (e) {
+      log('error in phone auth cubit : sendingotp method ${e.toString()}');
+      emit(PhoneAuthError(e.toString()));
+    }
   }
 
   void validate(BuildContext context) async {
@@ -45,7 +54,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
         _formKey.currentState!.save();
         final number =
             '${_countryCodeController.text}${_phoneNumberController.text}';
-        await sendingOTP(number: number);
+        await sendingOTP(context: context, number: number);
       }
     } else {
       _autovalidateMode = AutovalidateMode.always;

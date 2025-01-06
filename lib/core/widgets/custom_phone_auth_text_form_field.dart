@@ -9,7 +9,7 @@ class CustomPhoneAuthTextFormField extends StatelessWidget {
     super.key,
     required this.hint,
     required this.inputType,
-    this.onSaved,
+    // this.onSaved,
     this.validate,
     this.controller,
     this.maxLength,
@@ -19,7 +19,7 @@ class CustomPhoneAuthTextFormField extends StatelessWidget {
 
   final String hint;
   final TextInputType inputType;
-  final Function(String?)? onSaved;
+  // final Function(String?)? onSaved;
   final String? Function(String?)? validate;
   final TextEditingController? controller;
   final int? maxLength;
@@ -46,7 +46,7 @@ class CustomPhoneAuthTextFormField extends StatelessWidget {
             }
             return null;
           },
-      onSaved: onSaved,
+      // onSaved: onSaved,
       onFieldSubmitted: onFieldSubmitted,
       keyboardType: inputType,
       cursorColor: AppColors.primaryColor,

@@ -3,6 +3,8 @@ import 'package:fruit_hub/core/config/app_colors.dart';
 import 'package:fruit_hub/core/config/app_style.dart';
 import 'package:fruit_hub/core/utilies/constants.dart';
 
+import '../utilies/helper.dart';
+
 class CustomTextFormField extends StatelessWidget {
   final String hint;
   final TextInputType inputType;
@@ -15,14 +17,6 @@ class CustomTextFormField extends StatelessWidget {
     this.onSaved,
     this.validate,
   });
-
-  InputBorder inputBorder(double radius) {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(radius),
-      borderSide:
-          const BorderSide(color: AppColors.borderInputTextColor, width: 1),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +36,9 @@ class CustomTextFormField extends StatelessWidget {
         hintStyle: AppStyle.fontbold13.copyWith(
           color: AppColors.hintInputTextColor,
         ),
-        border: inputBorder(textFormFieldRadius),
-        focusedBorder: inputBorder(textFormFieldRadius),
-        enabledBorder: inputBorder(textFormFieldRadius),
+        border: Helper.inputBorder(textFormFieldRadius),
+        focusedBorder: Helper.inputBorder(textFormFieldRadius),
+        enabledBorder: Helper.inputBorder(textFormFieldRadius),
         filled: true,
         fillColor: AppColors.fillInputTextColor,
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/config/app_colors.dart';
 import 'package:fruit_hub/core/widgets/custom_phone_auth_text_form_field.dart';
+import 'package:fruit_hub/features/auth/data/otp_model.dart';
 import 'package:fruit_hub/features/auth/presentation/model_views/phone_auth_cubit/phone_auth_state.dart';
 import 'package:fruit_hub/features/auth/presentation/views/otp_view.dart';
 import 'package:go_router/go_router.dart';
@@ -77,11 +78,16 @@ class PhoneAuthViewBody extends StatelessWidget {
           ),
           const SizedBox(height: 30),
           CustomButton(
-              onPressed: () {
-                // phoneAuthCubit.validate(context);
-                GoRouter.of(context).pushReplacement(OtpView.rn);
-              },
-              data: 'إرسل رمز التحقق')
+            onPressed: () {
+              phoneAuthCubit.validate(context);
+              // GoRouter.of(context).push(OtpView.rn,
+              //     extra: OtpModel(
+              //         verificationId: 'verificationId',
+              //         resendToken: 5,
+              //         phoneNumber: 'phoneNumber'));
+            },
+            data: 'إرسل رمز التحقق',
+          ),
         ],
       ),
     );

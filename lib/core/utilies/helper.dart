@@ -10,6 +10,16 @@ import '../config/app_colors.dart';
 import '../config/app_style.dart';
 
 abstract class Helper {
+  /// method used to return a [OutlineInputBorder] with a specific radius
+  static InputBorder inputBorder(double radius) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(radius),
+      borderSide:
+          const BorderSide(color: AppColors.borderInputTextColor, width: 1),
+    );
+  }
+
+  /// method used to show a success message in the bottom of the screen
   static successMessage(BuildContext context, {required String message}) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -104,10 +114,16 @@ abstract class Helper {
   /// method used to get user data from shared prefrences which is stored as encoded [Map<String, dynamic>]
   /// then i decode it to [UserEntity] object to get the user name
   /// then display it in the home screen appBar
-  static UserEntity getUserDataFromSharedPrefrences() {
-    String encodedUserData = Preferences.getValue(key: kUserData);
-    Map<String, dynamic> decodedUserData =
-        SerializationService.deserialize<Map<String, dynamic>>(encodedUserData);
-    return UserModel.fromJson(decodedUserData);
+  static UserEntity? getUserDataFromSharedPrefrences() {
+    String? encodedUserData = Preferences.getValue(key: kUserData);
+    Map<String, dynamic> decodedUserData;
+    if (encodedUserData != null) {
+      decodedUserData = SerializationService.deserialize<Map<String, dynamic>>(
+          encodedUserData);
+      return UserModel.fromJson(decodedUserData);
+    }
+
+    /// في حاله مثلا المستخدم سجل برقم التليفون ولم يسجل بالايميل
+    return null;
   }
 }

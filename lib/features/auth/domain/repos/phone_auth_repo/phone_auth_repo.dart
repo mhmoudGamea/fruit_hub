@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 abstract class PhoneAuthRepo {
-  Future<void> verifyPhoneNumber(String phoneNumber);
+  Future<void> verifyPhoneNumber(BuildContext context, String phoneNumber);
 }
