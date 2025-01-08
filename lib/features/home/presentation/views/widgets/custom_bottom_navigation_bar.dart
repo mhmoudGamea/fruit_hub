@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub/features/home/presentation/model_views/bottom_navigation_bar_cubit/bottom_navigation_bar_state.dart';
+import 'package:fruit_hub/features/home/presentation/model_views/bottom_navigation_bar_cubit/bottom_navigation_state.dart';
 import 'package:fruit_hub/features/home/presentation/model_views/bottom_navigation_bar_cubit/bottom_navigation_cubit.dart';
 
 import '../../../data/bottom_navigation_bar_model.dart';
@@ -12,7 +12,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BottomNavigationCubit, BottomNavigationBarState>(
+    return BlocBuilder<BottomNavigationCubit, BottomNavigationState>(
       builder: (context, state) {
         return Container(
           height: 70,

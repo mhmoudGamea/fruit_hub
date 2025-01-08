@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'bottom_navigation_bar_state.dart';
+import 'bottom_navigation_state.dart';
 
-class BottomNavigationCubit extends Cubit<BottomNavigationBarState> {
-  BottomNavigationCubit() : super(BottomNavigationBarInitial());
+class BottomNavigationCubit extends Cubit<BottomNavigationState> {
+  BottomNavigationCubit() : super(BottomNavigationInitial());
 
   var _selectedIndex = 0;
 
@@ -13,6 +13,6 @@ class BottomNavigationCubit extends Cubit<BottomNavigationBarState> {
 
   set changeSelectedIndex(int newIndex) {
     _selectedIndex = newIndex;
-    emit(BottomNavigationBarIndexChanged());
+    emit(BottomNavigationIndexChanged());
   }
 }
