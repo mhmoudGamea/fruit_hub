@@ -40,7 +40,7 @@ class FruitItem extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 15),
           ListTile(
             contentPadding: const EdgeInsets.all(0),
             title: const Text('أناناس', style: AppStyle.fontsemi13),

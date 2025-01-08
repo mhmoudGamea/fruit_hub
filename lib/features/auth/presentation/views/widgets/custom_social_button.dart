@@ -32,10 +32,12 @@ class CustomSocialButton extends StatelessWidget {
               socialMediaLogo,
               width: 20,
             ),
-            const SizedBox(width: 60),
-            Text(
-              text,
-              style: AppStyle.fontsemi16,
+            const SizedBox(width: 20),
+            FittedBox(
+              child: Text(
+                text,
+                style: AppStyle.fontsemi16,
+              ),
             )
           ],
         ),
