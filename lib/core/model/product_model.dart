@@ -40,7 +40,7 @@ class ProductModel {
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> map) => ProductModel(
-        reviwesModel: map['reviews'],
+        reviwesModel: [...map['reviews'].map((e) => ReviewModel.fromJson(e))],
         productName: map['productName'],
         productPrice: map['productPrice'],
         productCode: map['productCode'],
@@ -62,6 +62,11 @@ class ProductModel {
     return reviewsEntities.map((e) => ReviewModel.fromEntity(e)).toList();
   }
 
+  static List<ReviewEntity> getReviewsEntityFromReviewsModel(
+      List<ReviewModel> reviewModel) {
+    return reviewModel.map((e) => ReviewModel.toEntity(e)).toList();
+  }
+
   factory ProductModel.fromEntity(ProductEntity productEntity) => ProductModel(
         reviwesModel:
             getReviewsModelFromReviewsEntity(productEntity.reviwesEntities),
@@ -80,6 +85,27 @@ class ProductModel {
         avgRating: productEntity.avgRating,
         ratingCount: productEntity.ratingCount,
       );
+
+  static ProductEntity toProductEntity(ProductModel productModel) {
+    return ProductEntity(
+      productName: productModel.productName,
+      productPrice: productModel.productPrice,
+      productCode: productModel.productCode,
+      productDescription: productModel.productDescription,
+      isFeatured: productModel.isFeatured,
+      productImage: productModel.productImage,
+      expirationInYear: productModel.expirationInYear,
+      expirationInMonth: productModel.expirationInMonth,
+      isOrganic: productModel.isOrganic,
+      caloriesPerServing: productModel.caloriesPerServing,
+      servingSizeInGrams: productModel.servingSizeInGrams,
+      avgRating: productModel.avgRating,
+      imageUrl: productModel.imageUrl,
+      ratingCount: productModel.ratingCount,
+      reviwesEntities:
+          getReviewsEntityFromReviewsModel(productModel.reviwesModel),
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {

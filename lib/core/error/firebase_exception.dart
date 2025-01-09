@@ -41,6 +41,9 @@ class ServiceException extends FirebaseException {
         return ServiceException('عملية غير منفذة');
       case 'cancelled':
         return ServiceException('تم إلغاء العملية');
+      case 'unavailable':
+        return ServiceException(
+            'خدمه السيرفر غير متوفره حاليا. من فضلك حاول مره أخري');
       default:
         return ServiceException('حدث خطأ ما برجاء المحاوله مره أخري.');
     }

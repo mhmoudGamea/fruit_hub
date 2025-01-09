@@ -31,6 +31,13 @@ class ReviewModel {
         reviewRating: reviewEntity.reviewRating,
       );
 
+  static ReviewEntity toEntity(ReviewModel reviewModel) => ReviewEntity(
+      reviewerImage: reviewModel.reviewerImage,
+      reviewerName: reviewModel.reviewerName,
+      reviewDate: reviewModel.reviewDate,
+      review: reviewModel.review,
+      reviewRating: reviewModel.reviewRating);
+
   Map<String, dynamic> toJson() => {
         'reviewerImage': reviewerImage,
         'reviewerName': reviewerName,

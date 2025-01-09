@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 
@@ -24,16 +26,31 @@ class FirebaseFirestoreService implements DatabaseService {
     } on FirebaseException catch (error) {
       throw ServiceException.fromFirestore(code: error.code);
     } catch (error) {
+      log('Error in FirebaseFirestoreService: writeData => ${error.toString()}');
       throw ServiceException(':( حدث خطأ ما. برجاء المحاوله مره أخري');
     }
   }
 
   @override
-  Future<Map<String, dynamic>> readData(
-      {required String path, required String documentId}) async {
-    final result =
-        await firebaseFirestore.collection(path).doc(documentId).get();
-    return result.data()!;
+  Future<dynamic> readData({
+    required String path,
+    String? documentId,
+  }) async {
+    try {
+      if (documentId != null) {
+        final result =
+            await firebaseFirestore.collection(path).doc(documentId).get();
+        return result.data()!;
+      } else {
+        final result = await firebaseFirestore.collection(path).get();
+        return result.docs.map((e) => e.data()).toList();
+      }
+    } on FirebaseException catch (error) {
+      throw ServiceException.fromFirestore(code: error.code);
+    } catch (error) {
+      log('Error in FirebaseFirestoreService: readData => ${error.toString()}');
+      throw ServiceException(':( حدث خطأ ما. برجاء المحاوله مره أخري');
+    }
   }
 
   @override
