@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'review_entity.dart';
 
 class ProductEntity {
@@ -8,7 +6,6 @@ class ProductEntity {
   final String productCode;
   final String productDescription;
   final bool isFeatured;
-  final File productImage;
   final int expirationInYear;
   final int expirationInMonth;
   final bool isOrganic;
@@ -16,7 +13,7 @@ class ProductEntity {
   final int servingSizeInGrams; //100g
   final num avgRating;
   final num ratingCount;
-  String? imageUrl;
+  final String imageUrl;
   final List<ReviewEntity> reviwesEntities;
 
   ProductEntity({
@@ -25,13 +22,12 @@ class ProductEntity {
     required this.productCode,
     required this.productDescription,
     required this.isFeatured,
-    required this.productImage,
     required this.expirationInYear,
     required this.expirationInMonth,
     required this.isOrganic,
     required this.caloriesPerServing,
     required this.servingSizeInGrams,
-    this.imageUrl,
+    required this.imageUrl,
     this.avgRating = 0,
     this.ratingCount = 0,
     this.reviwesEntities = const [],

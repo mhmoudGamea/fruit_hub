@@ -1,12 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fruit_hub/core/config/app_colors.dart';
 import 'package:fruit_hub/core/config/app_style.dart';
-import 'package:fruit_hub/core/utilies/app_images.dart';
+import 'package:fruit_hub/core/entities/product_entity.dart';
 import 'package:iconsax/iconsax.dart';
 
 class FruitItem extends StatelessWidget {
-  const FruitItem({super.key});
+  final ProductEntity productEntity;
+  const FruitItem({super.key, required this.productEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -32,22 +33,30 @@ class FruitItem extends StatelessWidget {
                 ),
               ),
               Center(
-                child: SizedBox(
-                    width: 114,
-                    height: 105,
-                    child: SvgPicture.asset(AppImages.pineaple)),
+                child: CachedNetworkImage(
+                  imageUrl: productEntity.imageUrl,
+                  height: 100,
+                  width: 100,
+                  placeholder: (context, url) {
+                    return Container(
+                      color: const Color.fromARGB(255, 234, 237, 239),
+                      height: 100,
+                      width: 100,
+                    );
+                  },
+                ),
               ),
             ],
           ),
           const SizedBox(height: 15),
           ListTile(
             contentPadding: const EdgeInsets.all(0),
-            title: const Text('أناناس', style: AppStyle.fontsemi13),
+            title: Text(productEntity.productName, style: AppStyle.fontsemi13),
             subtitle: Text.rich(
               TextSpan(
                 children: [
                   TextSpan(
-                    text: '20جنية /',
+                    text: '${productEntity.productPrice}جنية /',
                     style: AppStyle.fontbold13
                         .copyWith(color: AppColors.secondaryColor),
                   ),

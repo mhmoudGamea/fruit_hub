@@ -21,6 +21,8 @@ class ProductRepoImpl implements ProductRepo {
           as List<Map<String, dynamic>>;
 
       /// [{}, {}, {}]
+      log('${result.first}');
+      log('${result.length}');
 
       return right(result
           .map((e) => ProductModel.toProductEntity(ProductModel.fromJson(e)))

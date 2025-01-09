@@ -1,7 +1,6 @@
-import 'dart:io';
+import 'package:fruit_hub/core/utilies/helper.dart';
 
 import '../entities/product_entity.dart';
-import '../entities/review_entity.dart';
 import 'review_model.dart';
 
 class ProductModel {
@@ -10,7 +9,6 @@ class ProductModel {
   final String productCode;
   final String productDescription;
   final bool isFeatured;
-  final File productImage;
   final int expirationInYear;
   final int expirationInMonth;
   final bool isOrganic;
@@ -18,7 +16,7 @@ class ProductModel {
   final int servingSizeInGrams; //100g
   final num avgRating;
   final num ratingCount;
-  final String? imageUrl;
+  final String imageUrl;
   final List<ReviewModel> reviwesModel;
 
   ProductModel({
@@ -26,16 +24,15 @@ class ProductModel {
     required this.productPrice,
     required this.productCode,
     required this.productDescription,
-    required this.isFeatured,
-    required this.productImage,
     required this.expirationInYear,
     required this.expirationInMonth,
-    required this.isOrganic,
     required this.caloriesPerServing,
     required this.servingSizeInGrams,
+    required this.isOrganic,
+    required this.isFeatured,
+    required this.imageUrl,
     this.avgRating = 0,
     this.ratingCount = 0,
-    this.imageUrl,
     this.reviwesModel = const [],
   });
 
@@ -46,36 +43,27 @@ class ProductModel {
         productCode: map['productCode'],
         productDescription: map['productDescription'],
         isFeatured: map['isFeatured'],
-        productImage: map['productImage'],
         imageUrl: map['imageUrl'],
         expirationInYear: map['expirationInYear'],
         expirationInMonth: map['expirationInMonth'],
         isOrganic: map['isOrganic'],
         caloriesPerServing: map['caloriesPerServing'],
         servingSizeInGrams: map['servingSizeInGrams'],
-        avgRating: map['avgRating'],
+        avgRating: Helper.getAvgRating([
+          ...map['reviews']
+              .map((e) => ReviewModel.toEntity(ReviewModel.fromJson(e)))
+        ]),
         ratingCount: map['ratingCount'],
       );
 
-  static List<ReviewModel> getReviewsModelFromReviewsEntity(
-      List<ReviewEntity> reviewsEntities) {
-    return reviewsEntities.map((e) => ReviewModel.fromEntity(e)).toList();
-  }
-
-  static List<ReviewEntity> getReviewsEntityFromReviewsModel(
-      List<ReviewModel> reviewModel) {
-    return reviewModel.map((e) => ReviewModel.toEntity(e)).toList();
-  }
-
   factory ProductModel.fromEntity(ProductEntity productEntity) => ProductModel(
-        reviwesModel:
-            getReviewsModelFromReviewsEntity(productEntity.reviwesEntities),
+        reviwesModel: Helper.getReviewsModelFromReviewsEntity(
+            productEntity.reviwesEntities),
         productName: productEntity.productName,
         productPrice: productEntity.productPrice,
         productCode: productEntity.productCode,
         productDescription: productEntity.productDescription,
         isFeatured: productEntity.isFeatured,
-        productImage: productEntity.productImage,
         imageUrl: productEntity.imageUrl,
         expirationInYear: productEntity.expirationInYear,
         expirationInMonth: productEntity.expirationInMonth,
@@ -93,7 +81,6 @@ class ProductModel {
       productCode: productModel.productCode,
       productDescription: productModel.productDescription,
       isFeatured: productModel.isFeatured,
-      productImage: productModel.productImage,
       expirationInYear: productModel.expirationInYear,
       expirationInMonth: productModel.expirationInMonth,
       isOrganic: productModel.isOrganic,
@@ -103,7 +90,7 @@ class ProductModel {
       imageUrl: productModel.imageUrl,
       ratingCount: productModel.ratingCount,
       reviwesEntities:
-          getReviewsEntityFromReviewsModel(productModel.reviwesModel),
+          Helper.getReviewsEntityFromReviewsModel(productModel.reviwesModel),
     );
   }
 

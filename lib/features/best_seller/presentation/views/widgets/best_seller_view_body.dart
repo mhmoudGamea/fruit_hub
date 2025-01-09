@@ -3,7 +3,7 @@ import 'package:fruit_hub/core/config/app_style.dart';
 
 import '../../../../../core/utilies/constants.dart';
 import '../../../../../core/widgets/custom_notification_app_bar.dart';
-import '../../../../../core/widgets/fruit_item.dart';
+import '../../../../../core/widgets/best_seller_grid_list.dart';
 
 class BestSellerViewBody extends StatelessWidget {
   const BestSellerViewBody({super.key});
@@ -26,18 +26,7 @@ class BestSellerViewBody extends StatelessWidget {
               ],
             ),
           ),
-          SliverGrid.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 163 / 244,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 8,
-            ),
-            itemBuilder: (context, index) {
-              return const FruitItem();
-            },
-            itemCount: 12,
-          ),
+          const BestSellerGridList(),
         ],
       ),
     );

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/cubits/bottom_navigation_bar_cubit/bottom_navigation_cubit.dart';
+import '../../../../core/widgets/custom_bottom_navigation_bar.dart';
 import 'widgets/best_seller_view_body.dart';
 
 class BestSellerView extends StatelessWidget {
@@ -7,14 +10,14 @@ class BestSellerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
+    return Scaffold(
+      body: const SafeArea(
         child: BestSellerViewBody(),
       ),
-      // bottomNavigationBar: BlocProvider(
-      //   create: (context) => BottomNavigationCubit(),
-      //   child: const CustomBottomNavigationBar(),
-      // ),
+      bottomNavigationBar: BlocProvider(
+        create: (context) => BottomNavigationCubit(),
+        child: const CustomBottomNavigationBar(),
+      ),
     );
   }
 }

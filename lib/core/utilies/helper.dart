@@ -8,6 +8,8 @@ import 'package:iconsax/iconsax.dart';
 
 import '../config/app_colors.dart';
 import '../config/app_style.dart';
+import '../entities/review_entity.dart';
+import '../model/review_model.dart';
 
 abstract class Helper {
   /// method used to return a [OutlineInputBorder] with a specific radius
@@ -125,5 +127,27 @@ abstract class Helper {
 
     /// في حاله مثلا المستخدم سجل برقم التليفون ولم يسجل بالايميل
     return null;
+  }
+
+  static List<ReviewModel> getReviewsModelFromReviewsEntity(
+      List<ReviewEntity> reviewsEntities) {
+    return reviewsEntities.map((e) => ReviewModel.fromEntity(e)).toList();
+  }
+
+  static List<ReviewEntity> getReviewsEntityFromReviewsModel(
+      List<ReviewModel> reviewModel) {
+    return reviewModel.map((e) => ReviewModel.toEntity(e)).toList();
+  }
+
+  /// method to calc avgRating in ProductModel
+  static double getAvgRating(List<ReviewEntity> reviews) {
+    var sum = 0.0;
+    if (reviews.isNotEmpty) {
+      for (var review in reviews) {
+        sum += review.reviewRating;
+      }
+      return sum / reviews.length;
+    }
+    return 0.0;
   }
 }
