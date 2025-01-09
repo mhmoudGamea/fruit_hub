@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/config/app_style.dart';
 
-class OfferItemButton extends StatelessWidget {
+class OfferItemDetailsButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
   final Color? textColor;
   final Color? backgroundColor;
-  const OfferItemButton(
+  const OfferItemDetailsButton(
       {super.key,
       required this.onPressed,
       required this.text,

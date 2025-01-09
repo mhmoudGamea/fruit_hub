@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub/features/home/presentation/model_views/bottom_navigation_bar_cubit/bottom_navigation_cubit.dart';
-import 'package:fruit_hub/features/home/presentation/views/widgets/custom_bottom_navigation_bar.dart';
+import 'package:fruit_hub/core/cubits/bottom_navigation_bar_cubit/bottom_navigation_cubit.dart';
+import 'package:fruit_hub/core/widgets/custom_bottom_navigation_bar.dart';
 
 import 'widgets/home_view_body.dart';
 

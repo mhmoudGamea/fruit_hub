@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/config/app_style.dart';
-import 'offer_item_button.dart';
+import 'offer_item_details_button.dart';
 
 class OfferItemDetails extends StatelessWidget {
   final String title;
@@ -30,7 +30,7 @@ class OfferItemDetails extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 7),
-        OfferItemButton(onPressed: () {}, text: 'تسوق الأن'),
+        OfferItemDetailsButton(onPressed: () {}, text: 'تسوق الأن'),
       ],
     );
   }
