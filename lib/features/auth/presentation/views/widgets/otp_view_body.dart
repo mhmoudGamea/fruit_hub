@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub/core/utilies/helper.dart';
-import 'package:fruit_hub/features/auth/data/otp_model.dart';
-import 'package:fruit_hub/features/auth/presentation/model_views/otp_cubit/otp_code_state.dart';
-import 'package:fruit_hub/features/home/presentation/views/home_view.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/config/app_style.dart';
 import '../../../../../core/utilies/constants.dart';
+import '../../../../../core/utilies/helper.dart';
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_otp_text_field.dart';
+import '../../../../main/presentation/main_view.dart';
+import '../../../data/otp_model.dart';
 import '../../model_views/otp_cubit/otp_code_cubit.dart';
+import '../../model_views/otp_cubit/otp_code_state.dart';
 
 class OtpViewBody extends StatelessWidget {
   const OtpViewBody({super.key, required this.credentials});
@@ -29,7 +29,7 @@ class OtpViewBody extends StatelessWidget {
             Helper.errorMessage(context, message: state.message);
           } else if (state is OtpCodeSuccess) {
             Helper.successMessage(context, message: 'تم التحقق بنجاح');
-            GoRouter.of(context).pushReplacement(HomeView.rn);
+            GoRouter.of(context).pushReplacement(MainView.rn);
           }
         },
         builder: (context, state) {

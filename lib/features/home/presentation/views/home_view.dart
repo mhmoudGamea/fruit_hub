@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub/core/cubits/bottom_navigation_bar_cubit/bottom_navigation_cubit.dart';
-import 'package:fruit_hub/core/widgets/custom_bottom_navigation_bar.dart';
 
+import '../model_views/home_cubit/home_cubit.dart';
 import 'widgets/home_view_body.dart';
 
 class HomeView extends StatelessWidget {
@@ -11,13 +10,13 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const SafeArea(
-        child: HomeViewBody(),
-      ),
-      bottomNavigationBar: BlocProvider(
-        create: (context) => BottomNavigationCubit(),
-        child: const CustomBottomNavigationBar(),
+    return SafeArea(
+      child: BlocProvider(
+        create: (context) => HomeCubit(),
+        child: BlocProvider(
+          create: (context) => HomeCubit()..getProducts(),
+          child: const HomeViewBody(),
+        ),
       ),
     );
   }

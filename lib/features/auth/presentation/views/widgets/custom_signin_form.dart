@@ -7,7 +7,7 @@ import '../../../../../core/config/app_style.dart';
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/custom_text_form_field.dart';
 import '../../../../../core/widgets/custom_text_form_password_field.dart';
-import '../../../../home/presentation/views/home_view.dart';
+import '../../../../main/presentation/main_view.dart';
 import '../../model_views/signin_cubit/signin_cubit.dart';
 import '../forget_password_view.dart';
 
@@ -54,7 +54,7 @@ class CustomSigninForm extends StatelessWidget {
               onPressed: () {
                 siginCubit
                     .validateSigninUser()
-                    .then((_) => GoRouter.of(context).push(HomeView.rn));
+                    .then((_) => GoRouter.of(context).push(MainView.rn));
               },
               data: 'تسجيل دخول'),
         ],

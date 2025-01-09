@@ -2,15 +2,15 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub/features/auth/presentation/views/phone_auth_view.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/utilies/constants.dart';
 import '../../../../../core/utilies/helper.dart';
-import '../../../../home/presentation/views/home_view.dart';
+import '../../../../main/presentation/main_view.dart';
 import '../../model_views/signin_cubit/signin_cubit.dart';
 import '../../model_views/signin_cubit/signin_state.dart';
+import '../phone_auth_view.dart';
 import '../signup_view.dart';
 import 'custom_account_prompt.dart';
 import 'custom_divider.dart';
@@ -59,7 +59,7 @@ class SigninViewBody extends StatelessWidget {
                     context
                         .read<SigninCubit>()
                         .signinWithGoogle()
-                        .then((_) => GoRouter.of(context).push(HomeView.rn));
+                        .then((_) => GoRouter.of(context).push(MainView.rn));
                   },
                   text: 'تسجيل بواسطة جوجل',
                   socialMediaLogo: 'assets/images/google.svg',

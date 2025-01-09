@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fruit_hub/features/home/presentation/views/home_view.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/services/preferences.dart';
 import '../../../../../core/utilies/app_images.dart';
 import '../../../../auth/presentation/views/signin_view.dart';
+import '../../../../main/presentation/main_view.dart';
 import '../../../../on_boarding/presentation/views/on_boarding_view.dart';
 
 class SplashViewBody extends StatefulWidget {
@@ -71,7 +71,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
     final firebaseAuth = GetIt.instance<FirebaseAuth>();
     firebaseAuth.userChanges().listen((user) {
       if (user != null) {
-        GoRouter.of(context).pushReplacement(HomeView.rn);
+        GoRouter.of(context).pushReplacement(MainView.rn);
       } else {
         GoRouter.of(context).pushReplacement(SigninView.rn);
       }
