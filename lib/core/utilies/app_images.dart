@@ -36,4 +36,8 @@ abstract class AppImages {
 
   /// filter icon
   static const filterIcon = 'assets/images/filter.svg';
+
+  /// cart icons
+  static const plusIcon = 'assets/images/plus.svg';
+  static const minusIcon = 'assets/images/minus.svg';
 }

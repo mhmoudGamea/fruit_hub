@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fruit_hub/core/config/app_colors.dart';
 import 'package:fruit_hub/core/config/app_style.dart';
 import 'package:fruit_hub/core/entities/product_entity.dart';
+import 'package:fruit_hub/core/widgets/custom_circular_icon.dart';
 import 'package:iconsax/iconsax.dart';
 
 class FruitItem extends StatelessWidget {
@@ -68,14 +69,10 @@ class FruitItem extends StatelessWidget {
                 ],
               ),
             ),
-            trailing: Container(
-              height: 36,
-              width: 36,
-              decoration: const ShapeDecoration(
-                shape: CircleBorder(),
-                color: AppColors.primaryColor,
-              ),
-              child: const Icon(Iconsax.add, size: 25, color: AppColors.white),
+            trailing: CustomCircularIcon(
+              icon: Iconsax.add,
+              onPress: () {},
+              size: 36,
             ),
           ),
         ],
