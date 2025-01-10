@@ -5,10 +5,10 @@ import 'package:flutter/widgets.dart';
 // import '../../model_views/home_cubit/home_cubit.dart';
 // import '../../model_views/home_cubit/home_state.dart';
 import '../../../../../core/utilies/constants.dart';
-import 'best_seller_grid_list_bloc_builder.dart';
+import 'products_grid_list_bloc_builder.dart';
 import 'custom_home_app_bar.dart';
 import 'custom_search.dart';
-import 'head_line_home_item.dart';
+import '../../../../../core/widgets/custom_head_line.dart';
 import 'offer_list.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -31,14 +31,14 @@ class HomeViewBody extends StatelessWidget {
                     SizedBox(height: 12),
                     OfferList(),
                     SizedBox(height: 12),
-                    HeadLineHomeItem(),
+                    CustomHeadLine(),
                     SizedBox(height: 8),
                   ],
                 )
               ],
             ),
           ),
-          BestSellerGridListBlocBuilder(),
+          ProductsGridListBlocBuilder(),
         ],
       ),
     );

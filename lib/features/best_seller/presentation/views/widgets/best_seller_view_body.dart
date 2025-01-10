@@ -3,7 +3,7 @@ import 'package:fruit_hub/core/config/app_style.dart';
 
 import '../../../../../core/utilies/constants.dart';
 import '../../../../../core/widgets/custom_notification_app_bar.dart';
-import '../../../../../core/widgets/best_seller_grid_list.dart';
+import '../../../../../core/widgets/products_grid_list.dart';
 
 class BestSellerViewBody extends StatelessWidget {
   const BestSellerViewBody({super.key});
@@ -26,7 +26,7 @@ class BestSellerViewBody extends StatelessWidget {
               ],
             ),
           ),
-          const BestSellerGridList(),
+          const ProductsGridList(),
         ],
       ),
     );

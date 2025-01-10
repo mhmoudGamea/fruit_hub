@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/core/config/app_colors.dart';
+import 'package:fruit_hub/core/utilies/helper.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../core/config/app_style.dart';
@@ -39,7 +40,7 @@ class CustomSearch extends StatelessWidget {
           ),
           suffixIcon: InkWell(
             onTap: () {
-              print('object 2222222222222222');
+              Helper.showClassifyingBottomModelSheet(context);
             },
             child: const Icon(
               Iconsax.setting_4,

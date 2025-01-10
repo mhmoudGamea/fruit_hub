@@ -7,6 +7,8 @@ class InActiveBottomBarIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(iconPath, width: 22);
+    return Container(
+        color: Colors.transparent,
+        child: SvgPicture.asset(iconPath, width: 22));
   }
 }

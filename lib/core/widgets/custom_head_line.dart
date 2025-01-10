@@ -3,8 +3,8 @@ import 'package:fruit_hub/core/config/app_style.dart';
 import 'package:fruit_hub/features/best_seller/presentation/views/best_seller_view.dart';
 import 'package:go_router/go_router.dart';
 
-class HeadLineHomeItem extends StatelessWidget {
-  const HeadLineHomeItem({super.key});
+class CustomHeadLine extends StatelessWidget {
+  const CustomHeadLine({super.key});
 
   @override
   Widget build(BuildContext context) {

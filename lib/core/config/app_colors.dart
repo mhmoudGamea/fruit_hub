@@ -19,4 +19,7 @@ abstract class AppColors {
 
   /// color of border in textFormField
   static const Color borderInputTextColor = Color(0xffE6E9EA);
+
+  /// background color for fruit item and product item
+  static const Color backgroundItemColor = Color(0xffF3F5F7);
 }

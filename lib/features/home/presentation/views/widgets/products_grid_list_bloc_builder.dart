@@ -5,25 +5,25 @@ import 'package:fruit_hub/features/home/presentation/model_views/home_cubit/prod
 import 'package:fruit_hub/features/home/presentation/model_views/home_cubit/products_state.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../../core/widgets/best_seller_grid_list.dart';
+import '../../../../../core/widgets/products_grid_list.dart';
 
-class BestSellerGridListBlocBuilder extends StatelessWidget {
-  const BestSellerGridListBlocBuilder({super.key});
+class ProductsGridListBlocBuilder extends StatelessWidget {
+  const ProductsGridListBlocBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductsCubit, ProductsState>(
       builder: (context, state) {
         if (state is ProductsSuccess) {
-          return const BestSellerGridList();
+          return const ProductsGridList();
         } else if (state is ProductsFailure) {
           return SliverToBoxAdapter(
               child: CustomErrorWidget(text: state.error));
         } else {
           /// HomeProductsLoading
-          return const Skeletonizer.sliver(
-            enabled: true,
-            child: BestSellerGridList(),
+          return Skeletonizer.sliver(
+            enabled: state is ProductsLoading,
+            child: const ProductsGridList(),
           );
         }
       },

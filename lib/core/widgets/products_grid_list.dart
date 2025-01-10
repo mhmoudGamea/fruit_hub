@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/home/presentation/model_views/home_cubit/products_cubit.dart';
 import 'fruit_item.dart';
 
-class BestSellerGridList extends StatelessWidget {
-  const BestSellerGridList({super.key});
+class ProductsGridList extends StatelessWidget {
+  const ProductsGridList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,3 +26,8 @@ class BestSellerGridList extends StatelessWidget {
     );
   }
 }
+/*
+
+
+
+*/

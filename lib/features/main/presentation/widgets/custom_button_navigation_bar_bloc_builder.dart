@@ -14,21 +14,19 @@ class CustomButtonNavigationBarBlocBuilder extends StatelessWidget {
     final bottomNavigationCubit =
         BlocProvider.of<BottomNavigationCubit>(context);
     return BlocBuilder<BottomNavigationCubit, BottomNavigationState>(
-      builder: (context, state) {
-        if (bottomNavigationCubit.getSelectedIndex == 0) {
-          return const HomeView();
-        } else if (bottomNavigationCubit.getSelectedIndex == 1) {
-          return const OurProductsView();
-        } else if (bottomNavigationCubit.getSelectedIndex == 2) {
-          return Container(
-            color: Colors.amber,
-          );
-        } else {
-          return Container(
+      builder: (context, state) => IndexedStack(
+        index: bottomNavigationCubit.getSelectedIndex,
+        children: [
+          const HomeView(),
+          const OurProductsView(),
+          Container(
             color: Colors.red,
-          );
-        }
-      },
+          ),
+          Container(
+            color: Colors.amber,
+          ),
+        ],
+      ),
     );
   }
 }

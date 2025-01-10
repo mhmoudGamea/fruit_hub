@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'widgets/our_products_view_body.dart';
+import 'package:fruit_hub/features/our_products/presentation/views/widgets/our_products_view_body.dart';
 
 class OurProductsView extends StatelessWidget {
   const OurProductsView({super.key});

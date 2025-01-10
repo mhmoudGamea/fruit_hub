@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruit_hub/core/services/preferences.dart';
 import 'package:fruit_hub/core/services/serialization_service.dart';
 import 'package:fruit_hub/core/utilies/constants.dart';
+import 'package:fruit_hub/core/widgets/classifying_bottom_sheet_body.dart';
 import 'package:fruit_hub/features/auth/data/user_model.dart';
 import 'package:fruit_hub/features/auth/domain/entities/user_entity.dart';
 import 'package:iconsax/iconsax.dart';
@@ -10,6 +11,7 @@ import '../config/app_colors.dart';
 import '../config/app_style.dart';
 import '../entities/review_entity.dart';
 import '../model/review_model.dart';
+import '../widgets/ordering_bottom_sheet_body.dart';
 
 abstract class Helper {
   /// method used to return a [OutlineInputBorder] with a specific radius
@@ -149,5 +151,59 @@ abstract class Helper {
       return sum / reviews.length;
     }
     return 0.0;
+  }
+
+  /// method to show classifying bottom sheet
+  static void showClassifyingBottomModelSheet(BuildContext context) async {
+    await showModalBottomSheet(
+      context: context,
+      builder: (context) => Container(
+        height: 350,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, -2),
+              blurRadius: 20,
+              spreadRadius: 0,
+              color: Color(0x1A000000),
+            ),
+          ],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
+          ),
+        ),
+        child: const ClassifyingBottomSheetBody(),
+      ),
+    );
+  }
+
+  /// method to show classifying bottom sheet
+  static void showOrderingBottomModelSheet(BuildContext context) async {
+    await showModalBottomSheet(
+      context: context,
+      builder: (context) => Container(
+        height: 300,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, -2),
+              blurRadius: 20,
+              spreadRadius: 0,
+              color: Color(0x1A000000),
+            ),
+          ],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
+          ),
+        ),
+        child: const OrderingBottomSheetBody(),
+      ),
+    );
   }
 }

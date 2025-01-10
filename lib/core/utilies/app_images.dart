@@ -33,4 +33,7 @@ abstract class AppImages {
   static const cartB = 'assets/images/cartB.svg';
   static const categoryB = 'assets/images/categoryB.svg';
   static const homeB = 'assets/images/homeB.svg';
+
+  /// filter icon
+  static const filterIcon = 'assets/images/filter.svg';
 }
