@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/config/app_style.dart';
+import '../../../../../core/utilies/helper.dart';
 
 class CartLengthHeader extends StatelessWidget {
-  const CartLengthHeader({super.key});
+  const CartLengthHeader({super.key, required this.length});
+  final int length;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class CartLengthHeader extends StatelessWidget {
       height: 40,
       color: const Color(0xffEBF9F1),
       child: Text(
-        'لديك 3 منتجات في سله التسوق',
+        Helper.getHeaderTitle(length),
         textAlign: TextAlign.center,
         style: AppStyle.fontregular13.copyWith(color: AppColors.primaryColor),
       ),

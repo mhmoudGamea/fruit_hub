@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/config/app_colors.dart';
 import 'package:fruit_hub/core/config/app_style.dart';
 import 'package:fruit_hub/core/entities/product_entity.dart';
 import 'package:fruit_hub/core/widgets/custom_circular_icon.dart';
+import 'package:fruit_hub/features/cart/presentation/model_views/cart_cubit/cart_cubit.dart';
 import 'package:iconsax/iconsax.dart';
 
 class FruitItem extends StatelessWidget {
@@ -71,7 +73,8 @@ class FruitItem extends StatelessWidget {
             ),
             trailing: CustomCircularIcon(
               icon: Iconsax.add,
-              onPress: () {},
+              onPress: () =>
+                  context.read<CartCubit>().addItemToCart(productEntity),
               size: 36,
             ),
           ),

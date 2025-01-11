@@ -206,4 +206,15 @@ abstract class Helper {
       ),
     );
   }
+
+  /// get header string for cart view
+  static String getHeaderTitle(int length) {
+    return length == 0
+        ? 'السله فارغة حاليًا. أضف بعض العناصر للاستمتاع بالتسوق'
+        : (length == 1
+            ? 'لديك منتج واحد في سله التسوق'
+            : (length == 2
+                ? 'لديك منتجان في سله التسوق'
+                : 'لديك $length منتجات في سله التسوق'));
+  }
 }

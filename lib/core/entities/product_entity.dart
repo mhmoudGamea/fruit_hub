@@ -1,3 +1,4 @@
+import '../model/review_model.dart';
 import 'review_entity.dart';
 
 class ProductEntity {
@@ -32,4 +33,26 @@ class ProductEntity {
     this.ratingCount = 0,
     this.reviwesEntities = const [],
   });
+
+  factory ProductEntity.fromJson(Map<String, dynamic> json) {
+    return ProductEntity(
+      productName: json['productName'],
+      productPrice: json['productPrice'],
+      productCode: json['productCode'],
+      productDescription: json['productDescription'],
+      isFeatured: json['isFeatured'],
+      expirationInYear: json['expirationInYear'],
+      expirationInMonth: json['expirationInMonth'],
+      isOrganic: json['isOrganic'],
+      caloriesPerServing: json['caloriesPerServing'],
+      servingSizeInGrams: json['servingSizeInGrams'],
+      avgRating: json['avgRating'] ?? 0,
+      ratingCount: json['ratingCount'] ?? 0,
+      imageUrl: json['imageUrl'],
+      reviwesEntities: [
+        ...json['reviews']
+            .map((e) => ReviewModel.toEntity(ReviewModel.fromJson(e)))
+      ],
+    );
+  }
 }
