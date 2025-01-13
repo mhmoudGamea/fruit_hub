@@ -1,4 +1,4 @@
-abstract class DatabaseService {
+abstract class FirestoreService {
   Future<void> writeData({
     required String path,
     required Map<String, dynamic> data,

@@ -1,30 +1,88 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub/core/entities/product_entity.dart';
-import 'package:fruit_hub/core/services/cart_services.dart';
 
+import '../../../../../core/entities/product_entity.dart';
 import '../../../domain/entity/cart_entity.dart';
+import '../../../domain/repos/cart_repo_impl.dart';
 import 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
-  CartCubit() : super(CartInitial());
+  CartCubit(this._cartRepoImpl) : super(CartInitial());
+  final CartRepoImpl _cartRepoImpl;
 
-  final CartServices _cartServices = CartServices();
+  List<CartEntity> _cartItems = [];
 
-  void addItemToCart(ProductEntity productEntity) {
-    _cartServices.addItem(productEntity);
-    getTotalPrice();
-    emit(CartItemAdded());
+  List<CartEntity> get getCartItems => [..._cartItems];
+
+  int isItemExist(String code) {
+    return _cartItems
+        .indexWhere((item) => item.productEntity.productCode == code);
   }
 
-  void removeItemFromCart(String code) {
-    _cartServices.removeItem(code);
-    getTotalPrice();
-    emit(CartItemRemoved());
+  /// this method will perform 2 operation behind the sciene
+  /// 1- if item exist => update it's count & unit. indexWhere return index
+  /// 2- if cart empty || item not exist => add it. indexWhere return -1
+  void addItemToCart(ProductEntity productEntity) async {
+    var index = isItemExist(productEntity.productCode);
+    if (index != -1) {
+      await updateItemInCart(productEntity, index);
+    } else {
+      emit(CartAddItemLoading());
+      final response = await _cartRepoImpl.addToCart(productEntity);
+      response.fold((error) {
+        emit(CartAddItemFailure(error.message));
+      }, (success) {
+        CartEntity cartEntity =
+            CartEntity(productEntity: productEntity, count: 1, unit: 1);
+        _cartItems.add(cartEntity);
+        emit(CartAddItemSuccess(success));
+      });
+    }
   }
 
-  List<CartEntity> get getAllItems => _cartServices.getCartItems;
+  Future<void> updateItemInCart(ProductEntity productEntity, int index) async {
+    emit(CartUpdateItemLoading());
+    final response = await _cartRepoImpl.updateToCart(productEntity);
+    response.fold((error) {
+      emit(CartUpdateItemFailure(error.message));
+    }, (success) {
+      _cartItems[index].count += 1;
+      _cartItems[index].unit += 1;
+      emit(CartUpdateItemSuccess(success));
+    });
+  }
 
-  double getTotalPrice() {
-    return _cartServices.getTotalPriceForAllItem();
+  Future<void> fetchAndSet() async {
+    _cartItems.clear();
+    emit(CartItemFetchLoading());
+    final response = await _cartRepoImpl.fetchCartItems();
+    response.fold((error) {
+      emit(CartItemFetchFailure());
+    }, (success) {
+      _cartItems = success;
+      emit(CartItemFetchSuccess());
+    });
+  }
+
+  void removeItemFromCart(String code) {}
+
+  /// method to get price for each cart item
+  double getTotalPriceForEachItem(
+      {required int productCount, required String priceForEachProduct}) {
+    // i use double.parse because priceForEachProduct could be int or double
+    return productCount * double.parse(priceForEachProduct);
+  }
+
+  /// method to get total price for all cart items
+  double getTotalPriceForAllItem() {
+    var sum = 0.0;
+    if (_cartItems.isNotEmpty) {
+      for (var item in _cartItems) {
+        sum += getTotalPriceForEachItem(
+            productCount: item.count,
+            priceForEachProduct: item.productEntity.productPrice);
+      }
+      return double.parse(sum.toStringAsFixed(2));
+    }
+    return sum;
   }
 }

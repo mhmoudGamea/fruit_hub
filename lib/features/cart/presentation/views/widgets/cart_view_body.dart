@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +18,9 @@ class CartViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartCubit = BlocProvider.of<CartCubit>(context);
     return BlocConsumer<CartCubit, CartState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        log('cart state is : $state');
+      },
       builder: (context, state) {
         return Stack(
           children: [
@@ -28,23 +32,23 @@ class CartViewBody extends StatelessWidget {
                       const AppBarWithBackIcon(),
                       const SizedBox(height: 15),
                       CartLengthHeader(
-                        length: cartCubit.getAllItems.length,
+                        length: cartCubit.getCartItems.length,
                       ),
                       const SizedBox(height: 20),
                     ],
                   ),
                 ),
-                CartListView(cartEntities: cartCubit.getAllItems),
+                CartListView(cartEntities: cartCubit.getCartItems),
               ],
             ),
-            if (cartCubit.getAllItems.isNotEmpty)
+            if (cartCubit.getCartItems.isNotEmpty)
               Positioned(
                 bottom: 40,
                 left: 16,
                 right: 16,
                 child: CustomButton(
                     onPressed: () {},
-                    data: 'الدفع ${cartCubit.getTotalPrice()} جنيه'),
+                    data: 'الدفع ${cartCubit.getTotalPriceForAllItem()} جنيه'),
               ),
           ],
         );

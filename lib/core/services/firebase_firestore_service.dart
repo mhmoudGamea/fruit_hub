@@ -4,10 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 
 import '../error/firebase_exception.dart' show ServiceException;
-import 'database_service.dart';
+import 'firestore_service.dart';
 
-class FirebaseFirestoreService implements DatabaseService {
-  static var firebaseFirestore = GetIt.instance<FirebaseFirestore>();
+class FirebaseFirestoreService implements FirestoreService {
+  static final FirebaseFirestore _firebaseFirestore =
+      GetIt.instance<FirebaseFirestore>();
 
   @override
   Future<void> writeData({
@@ -18,10 +19,10 @@ class FirebaseFirestoreService implements DatabaseService {
     try {
       if (documentId != null) {
         // send document id in case of writing user uid [Authentication]
-        await firebaseFirestore.collection(path).doc(documentId).set(data);
+        await _firebaseFirestore.collection(path).doc(documentId).set(data);
       } else {
         // send document id in case of adding ordinary data
-        await firebaseFirestore.collection(path).add(data);
+        await _firebaseFirestore.collection(path).add(data);
       }
     } on FirebaseException catch (error) {
       throw ServiceException.fromFirestore(code: error.code);
@@ -39,10 +40,10 @@ class FirebaseFirestoreService implements DatabaseService {
     try {
       if (documentId != null) {
         final result =
-            await firebaseFirestore.collection(path).doc(documentId).get();
+            await _firebaseFirestore.collection(path).doc(documentId).get();
         return result.data()!;
       } else {
-        final result = await firebaseFirestore.collection(path).get();
+        final result = await _firebaseFirestore.collection(path).get();
         return result.docs.map((e) => e.data()).toList();
       }
     } on FirebaseException catch (error) {
@@ -55,7 +56,7 @@ class FirebaseFirestoreService implements DatabaseService {
 
   @override
   Future<bool> isDataExist({required String path, required String uid}) async {
-    final result = await firebaseFirestore.collection(path).doc(uid).get();
+    final result = await _firebaseFirestore.collection(path).doc(uid).get();
     return result.exists;
   }
 }

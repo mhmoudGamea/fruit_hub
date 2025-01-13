@@ -94,22 +94,23 @@ class ProductModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  static Map<String, dynamic> toJson(ProductModel productModel) {
     return {
-      'productName': productName,
-      'productPrice': productPrice,
-      'productCode': productCode,
-      'productDescription': productDescription,
-      'isFeatured': isFeatured,
-      'imageUrl': imageUrl,
-      'expirationInYear': expirationInYear,
-      'expirationInMonth': expirationInMonth,
-      'isOrganic': isOrganic,
-      'caloriesPerServing': caloriesPerServing,
-      'servingSizeInGrams': servingSizeInGrams,
-      'avgRating': avgRating,
-      'ratingCount': ratingCount,
-      'reviews': reviwesModel.map((review) => review.toJson()).toList(),
+      'productName': productModel.productName,
+      'productPrice': productModel.productPrice,
+      'productCode': productModel.productCode,
+      'productDescription': productModel.productDescription,
+      'isFeatured': productModel.isFeatured,
+      'imageUrl': productModel.imageUrl,
+      'expirationInYear': productModel.expirationInYear,
+      'expirationInMonth': productModel.expirationInMonth,
+      'isOrganic': productModel.isOrganic,
+      'caloriesPerServing': productModel.caloriesPerServing,
+      'servingSizeInGrams': productModel.servingSizeInGrams,
+      'avgRating': productModel.avgRating,
+      'ratingCount': productModel.ratingCount,
+      'reviews':
+          productModel.reviwesModel.map((review) => review.toJson()).toList(),
 
       /// [ {}, {}, {} ]
     };

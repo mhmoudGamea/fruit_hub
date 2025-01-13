@@ -1,9 +1,9 @@
-abstract class FirebaseException {
+abstract class Exception {
   final String message;
-  FirebaseException(this.message);
+  Exception(this.message);
 }
 
-class ServiceException extends FirebaseException {
+class ServiceException extends Exception {
   ServiceException(super.message);
 
   factory ServiceException.fromAuth({required String code}) {

@@ -16,8 +16,16 @@ class MainViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<CartCubit, CartState>(
       listener: (context, state) {
-        if (state is CartItemAdded) {
-          Helper.successMessage(context, message: 'تمت العمليه بنجاح');
+        if (state is CartAddItemSuccess) {
+          Helper.successMessage(context, message: state.success);
+        } else if (state is CartUpdateItemSuccess) {
+          Helper.successMessage(context, message: state.success);
+        } else if (state is CartAddItemFailure) {
+          Helper.errorMessage(context, message: state.error);
+        } else if (state is CartItemFetchFailure) {
+          Helper.errorMessage(context,
+              message:
+                  'حدث خطأ أثناء تحميل بيانات سلتك. من فضلك حاول مره أخري');
         }
       },
       child: IndexedStack(
