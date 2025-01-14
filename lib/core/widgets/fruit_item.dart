@@ -54,7 +54,12 @@ class FruitItem extends StatelessWidget {
           const SizedBox(height: 15),
           ListTile(
             contentPadding: const EdgeInsets.all(0),
-            title: Text(productEntity.productName, style: AppStyle.fontsemi13),
+            title: Text(
+              productEntity.productName,
+              style: AppStyle.fontsemi13,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
             subtitle: Text.rich(
               TextSpan(
                 children: [

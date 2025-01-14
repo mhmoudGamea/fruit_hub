@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/entities/product_entity.dart';
@@ -61,7 +62,7 @@ class CartCubit extends Cubit<CartState> {
     if (_cartItems[index].count >= 5) {
       emit(ErrorMoreThan5());
     } else {
-      emit(IncreaseLoading());
+      emit(IncreaseLoading(key: ValueKey(productEntity.productCode)));
       final response =
           await _cartRepoImpl.updateToCart(productEntity, Update.increment);
       response.fold((error) {
@@ -79,9 +80,9 @@ class CartCubit extends Cubit<CartState> {
     if (_cartItems[index].count <= 1) {
       emit(ErrorLessThan1());
     } else {
-      emit(DecreaseLoading());
+      emit(DecreaseLoading(key: ValueKey(productEntity.productCode)));
       final response =
-          await _cartRepoImpl.updateToCart(productEntity, Update.increment);
+          await _cartRepoImpl.updateToCart(productEntity, Update.decrement);
       response.fold((error) {
         emit(DecreaseFailure());
       }, (success) {

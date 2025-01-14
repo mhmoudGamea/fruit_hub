@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 abstract class CartState {}
 
 final class CartInitial extends CartState {}
@@ -31,7 +33,10 @@ final class CartUpdateItemFailure extends CartState {
 // cart increase item states
 final class ErrorMoreThan5 extends CartState {}
 
-final class IncreaseLoading extends CartState {}
+final class IncreaseLoading extends CartState {
+  final ValueKey<String> key;
+  IncreaseLoading({required this.key});
+}
 
 final class IncreaseSuccess extends CartState {}
 
@@ -40,7 +45,10 @@ final class IncreaseFailure extends CartState {}
 // cart decrease item states
 final class ErrorLessThan1 extends CartState {}
 
-final class DecreaseLoading extends CartState {}
+final class DecreaseLoading extends CartState {
+  final ValueKey<String> key;
+  DecreaseLoading({required this.key});
+}
 
 final class DecreaseSuccess extends CartState {}
 

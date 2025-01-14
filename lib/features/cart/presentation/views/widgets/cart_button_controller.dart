@@ -30,6 +30,14 @@ class CartButtonController extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        bool isLoading = false;
+        if (state is IncreaseLoading &&
+            state.key == ValueKey(cartEntity.productEntity.productCode)) {
+          isLoading = true;
+        } else if (state is DecreaseLoading &&
+            state.key == ValueKey(cartEntity.productEntity.productCode)) {
+          isLoading = true;
+        }
         return Row(
           children: [
             CustomCircularIcon(
@@ -41,10 +49,9 @@ class CartButtonController extends StatelessWidget {
                       .increaseUpdate(cartEntity.productEntity);
                 }),
             const SizedBox(width: 20),
-            if (state is IncreaseLoading || state is DecreaseLoading)
-              const LoadingCircle()
-            else
-              Text('${cartEntity.count}', style: AppStyle.fontbold16),
+            isLoading
+                ? const LoadingCircle()
+                : Text('${cartEntity.count}', style: AppStyle.fontbold16),
             const SizedBox(width: 20),
             CustomCircularIcon(
               icon: Iconsax.minus,

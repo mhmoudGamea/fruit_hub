@@ -13,6 +13,7 @@ class CartListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverList.builder(
       itemBuilder: (context, index) => CartListViewItem(
+        key: ValueKey(cartEntities[index].productEntity.productCode),
         isLast: index == cartEntities.length - 1,
         cartEntity: cartEntities[index],
       ),
