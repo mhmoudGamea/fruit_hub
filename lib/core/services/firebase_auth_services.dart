@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -29,8 +27,6 @@ class FirebaseAuthServices {
           email: email, password: password);
       return credential.user!;
     } on FirebaseAuthException catch (error) {
-      log(error.code);
-      log(error.message!);
       throw ServiceException.fromAuth(code: error.code);
     } catch (error) {
       throw ServiceException('حدث خطأ ما. برجاء المحاوله مره أخري');

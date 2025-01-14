@@ -20,10 +20,6 @@ class ProductRepoImpl implements ProductRepo {
       final result = await firebaseFirestoreService.readData(path: kProducts)
           as List<Map<String, dynamic>>;
 
-      /// [{}, {}, {}]
-      log('${result.first}');
-      log('${result.length}');
-
       return right(result
           .map((e) => ProductModel.toProductEntity(ProductModel.fromJson(e)))
           .toList());

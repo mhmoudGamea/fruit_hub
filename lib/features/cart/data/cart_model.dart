@@ -5,12 +5,12 @@ import '../../../core/model/product_model.dart';
 class CartModel {
   final ProductModel product;
   int count;
-  double unit;
+  int unit;
 
   CartModel({
     required this.product,
     this.count = 0,
-    this.unit = 0.0,
+    this.unit = 0,
   });
 
   factory CartModel.fromJson(Map<String, dynamic> map) {

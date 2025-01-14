@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub/core/config/app_colors.dart';
-import 'package:fruit_hub/core/config/app_style.dart';
-import 'package:fruit_hub/core/widgets/custom_circular_icon.dart';
-import 'package:fruit_hub/features/cart/presentation/model_views/cart_cubit/cart_cubit.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../../../core/config/app_colors.dart';
+import '../../../../../core/config/app_style.dart';
 import '../../../domain/entity/cart_entity.dart';
+import '../../model_views/cart_cubit/cart_cubit.dart';
+import 'cart_button_controller.dart';
 
 class CartListViewItem extends StatelessWidget {
   const CartListViewItem(
@@ -61,29 +61,13 @@ class CartListViewItem extends StatelessWidget {
               ),
               const SizedBox(height: 2),
               Text(
-                '${cartEntity.unit} كم',
+                '${cartEntity.unit} كجم',
                 style: AppStyle.fontregular13.copyWith(
                   color: AppColors.secondaryColor,
                 ),
               ),
               const SizedBox(height: 6),
-              Row(
-                children: [
-                  CustomCircularIcon(
-                      icon: Iconsax.add, size: 24, onPress: () {}),
-                  const SizedBox(width: 15),
-                  Text('${cartEntity.count}', style: AppStyle.fontbold16),
-                  const SizedBox(width: 15),
-                  CustomCircularIcon(
-                    icon: Iconsax.minus,
-                    size: 24,
-                    onPress: () {},
-                    backgroundColor: AppColors.backgroundItemColor,
-                    iconColor: const Color(0xff979899),
-                    borderColor: const Color(0xffF1F1F5),
-                  ),
-                ],
-              )
+              CartButtonController(cartEntity: cartEntity),
             ],
           ),
           const Spacer(),

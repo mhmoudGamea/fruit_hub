@@ -1,9 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/entities/product_entity.dart';
 import '../../../domain/entity/cart_entity.dart';
 import '../../../domain/repos/cart_repo_impl.dart';
 import 'cart_state.dart';
+
+enum Update {
+  increment,
+  decrement,
+}
 
 class CartCubit extends Cubit<CartState> {
   CartCubit(this._cartRepoImpl) : super(CartInitial());
@@ -13,18 +20,23 @@ class CartCubit extends Cubit<CartState> {
 
   List<CartEntity> get getCartItems => [..._cartItems];
 
-  int isItemExist(String code) {
-    return _cartItems
-        .indexWhere((item) => item.productEntity.productCode == code);
-  }
-
   /// this method will perform 2 operation behind the sciene
   /// 1- if item exist => update it's count & unit. indexWhere return index
   /// 2- if cart empty || item not exist => add it. indexWhere return -1
   void addItemToCart(ProductEntity productEntity) async {
-    var index = isItemExist(productEntity.productCode);
+    var index = _cartItems.indexWhere(
+        (item) => item.productEntity.productCode == productEntity.productCode);
     if (index != -1) {
-      await updateItemInCart(productEntity, index);
+      emit(CartUpdateItemLoading());
+      final response =
+          await _cartRepoImpl.updateToCart(productEntity, Update.increment);
+      response.fold((error) {
+        emit(CartUpdateItemFailure(error.message));
+      }, (success) {
+        _cartItems[index].count += 1;
+        _cartItems[index].unit += 1;
+        emit(CartUpdateItemSuccess(success));
+      });
     } else {
       emit(CartAddItemLoading());
       final response = await _cartRepoImpl.addToCart(productEntity);
@@ -39,16 +51,45 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  Future<void> updateItemInCart(ProductEntity productEntity, int index) async {
-    emit(CartUpdateItemLoading());
-    final response = await _cartRepoImpl.updateToCart(productEntity);
-    response.fold((error) {
-      emit(CartUpdateItemFailure(error.message));
-    }, (success) {
-      _cartItems[index].count += 1;
-      _cartItems[index].unit += 1;
-      emit(CartUpdateItemSuccess(success));
-    });
+  int getIndex(String code) {
+    return _cartItems
+        .indexWhere((item) => item.productEntity.productCode == code);
+  }
+
+  Future<void> increaseUpdate(ProductEntity productEntity) async {
+    var index = getIndex(productEntity.productCode);
+    if (_cartItems[index].count >= 5) {
+      emit(ErrorMoreThan5());
+    } else {
+      emit(IncreaseLoading());
+      final response =
+          await _cartRepoImpl.updateToCart(productEntity, Update.increment);
+      response.fold((error) {
+        emit(IncreaseFailure());
+      }, (success) {
+        _cartItems[index].count += 1;
+        _cartItems[index].unit += 1;
+        emit(IncreaseSuccess());
+      });
+    }
+  }
+
+  Future<void> decreaseUpdate(ProductEntity productEntity) async {
+    var index = getIndex(productEntity.productCode);
+    if (_cartItems[index].count <= 1) {
+      emit(ErrorLessThan1());
+    } else {
+      emit(DecreaseLoading());
+      final response =
+          await _cartRepoImpl.updateToCart(productEntity, Update.increment);
+      response.fold((error) {
+        emit(DecreaseFailure());
+      }, (success) {
+        _cartItems[index].count -= 1;
+        _cartItems[index].unit -= 1;
+        emit(DecreaseSuccess());
+      });
+    }
   }
 
   Future<void> fetchAndSet() async {
@@ -56,9 +97,11 @@ class CartCubit extends Cubit<CartState> {
     emit(CartItemFetchLoading());
     final response = await _cartRepoImpl.fetchCartItems();
     response.fold((error) {
+      log('error happen while fetch${error.message}');
       emit(CartItemFetchFailure());
     }, (success) {
       _cartItems = success;
+      log('success happen while fetch ${_cartItems.length}');
       emit(CartItemFetchSuccess());
     });
   }

@@ -28,6 +28,24 @@ final class CartUpdateItemFailure extends CartState {
   CartUpdateItemFailure(this.error);
 }
 
+// cart increase item states
+final class ErrorMoreThan5 extends CartState {}
+
+final class IncreaseLoading extends CartState {}
+
+final class IncreaseSuccess extends CartState {}
+
+final class IncreaseFailure extends CartState {}
+
+// cart decrease item states
+final class ErrorLessThan1 extends CartState {}
+
+final class DecreaseLoading extends CartState {}
+
+final class DecreaseSuccess extends CartState {}
+
+final class DecreaseFailure extends CartState {}
+
 // cart item fetching
 final class CartItemFetchLoading extends CartState {}
 

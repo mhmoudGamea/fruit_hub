@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:fruit_hub/features/cart/presentation/model_views/cart_cubit/cart_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../../core/entities/product_entity.dart';
@@ -31,18 +32,38 @@ class CartRepoImpl implements CartRepo {
 
   @override
   Future<Either<Exception, String>> updateToCart(
-      ProductEntity productEntity) async {
+      ProductEntity productEntity, Update type) async {
     try {
-      var data = {
-        'count': FieldValue.increment(1),
-        'unit': FieldValue.increment(1),
-      };
+      Map<String, FieldValue> data;
+      if (type == Update.increment) {
+        data = {
+          'count': FieldValue.increment(1),
+          'unit': FieldValue.increment(1),
+        };
+      } else {
+        data = {
+          'count': FieldValue.increment(-1),
+          'unit': FieldValue.increment(-1),
+        };
+      }
       await _firebaseCartService.updateItemInCart(
           productEntity.productCode, data);
       return right('لقد قمت بإضافة ${productEntity.productName} أخرى إلى سلتك');
     } on ServiceException catch (error) {
       return left(ServiceException(error.message));
     }
+  }
+
+  @override
+  Future<Either<Exception, void>> decreaseItem(ProductEntity productEntity) {
+    // TODO: implement decreaseItem
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Exception, void>> increaseItem(ProductEntity productEntity) {
+    // TODO: implement increaseItem
+    throw UnimplementedError();
   }
 
   @override

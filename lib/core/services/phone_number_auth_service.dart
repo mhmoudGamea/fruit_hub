@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fruit_hub/features/auth/data/otp_model.dart';
@@ -13,8 +11,6 @@ abstract class PhoneNumberAuthService {
   //(PhoneAuthCredential credential) {}
   static void phoneAuthCredential(PhoneAuthCredential credential) async {
     await FirebaseAuth.instance.signInWithCredential(credential);
-    log(credential.providerId);
-    log(credential.smsCode.toString());
   }
 
   static void verificationFailes(FirebaseAuthException e) {
