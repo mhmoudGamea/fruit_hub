@@ -40,4 +40,12 @@ abstract class AppImages {
   /// cart icons
   static const plusIcon = 'assets/images/plus.svg';
   static const minusIcon = 'assets/images/minus.svg';
+
+  /// checkout - pay methods
+
+  static const visa = 'assets/images/visa.svg';
+  static const mastercard = 'assets/images/mastercard.svg';
+  static const paypal = 'assets/images/paypal.svg';
+  static const applepay = 'assets/images/applepay.svg';
+  static const successPayment = 'assets/images/success.svg';
 }

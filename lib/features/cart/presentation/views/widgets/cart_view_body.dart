@@ -5,6 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/features/cart/presentation/model_views/cart_cubit/cart_cubit.dart';
 import 'package:fruit_hub/features/cart/presentation/model_views/cart_cubit/cart_state.dart';
+import 'package:fruit_hub/features/check_out/domain/entities/order_entity.dart';
+import 'package:fruit_hub/features/check_out/presentation/views/check_out_view.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/widgets/app_bar_with_back_icon.dart';
 import '../../../../../core/widgets/custom_button.dart';
@@ -47,7 +50,15 @@ class CartViewBody extends StatelessWidget {
                 left: 16,
                 right: 16,
                 child: CustomButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      GoRouter.of(context).push(
+                        CheckOutView.rn,
+                        extra: OrderEntity(
+                          cartEntity: cartCubit.getCartItems,
+                          totalPrice: cartCubit.getTotalPriceForAllItem(),
+                        ),
+                      );
+                    },
                     data: 'الدفع ${cartCubit.getTotalPriceForAllItem()} جنيه'),
               ),
           ],

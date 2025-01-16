@@ -1,3 +1,4 @@
+import 'package:fruit_hub/features/check_out/domain/entities/order_entity.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/data/otp_model.dart';
@@ -7,6 +8,7 @@ import '../../features/auth/presentation/views/phone_auth_view.dart';
 import '../../features/auth/presentation/views/signin_view.dart';
 import '../../features/auth/presentation/views/signup_view.dart';
 import '../../features/best_seller/presentation/views/best_seller_view.dart';
+import '../../features/check_out/presentation/views/check_out_view.dart';
 import '../../features/main/presentation/main_view.dart';
 import '../../features/on_boarding/presentation/views/on_boarding_view.dart';
 import '../../features/splash/presentation/views/splash_view.dart';
@@ -54,6 +56,11 @@ abstract class Navigation {
       GoRoute(
         path: BestSellerView.rn,
         builder: (context, state) => const BestSellerView(),
+      ),
+      GoRoute(
+        path: CheckOutView.rn,
+        builder: (context, state) =>
+            CheckOutView(orderEntity: state.extra as OrderEntity),
       )
     ],
   );
