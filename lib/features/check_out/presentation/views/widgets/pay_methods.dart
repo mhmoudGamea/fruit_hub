@@ -9,13 +9,13 @@ class PayMethods extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Row(
       children: [
-        PayMethosItem(image: AppImages.applepay),
-        SizedBox(width: 16),
+        // PayMethosItem(image: AppImages.applepay),
+        // SizedBox(width: 16),
         PayMethosItem(image: AppImages.paypal),
-        SizedBox(width: 16),
-        PayMethosItem(image: AppImages.mastercard),
-        SizedBox(width: 16),
-        PayMethosItem(image: AppImages.visa, bgColor: Color(0xff1434CB)),
+        // SizedBox(width: 16),
+        // PayMethosItem(image: AppImages.mastercard),
+        // SizedBox(width: 16),
+        // PayMethosItem(image: AppImages.visa, bgColor: Color(0xff1434CB)),
       ],
     );
   }
@@ -46,7 +46,6 @@ class PayMethosItem extends StatelessWidget {
           width: 1,
           color: const Color(0xffD6DCE5),
         ),
-        // image: const DecorationImage(image: AssetImage(AppImages.visa)),
       ),
       child: SvgPicture.asset(image),
     );

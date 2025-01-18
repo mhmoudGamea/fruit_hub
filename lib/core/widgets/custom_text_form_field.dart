@@ -10,12 +10,14 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType inputType;
   final Function(String?)? onSaved;
   final String? Function(String?)? validate;
+  final bool isLast;
   const CustomTextFormField({
     super.key,
     required this.hint,
     required this.inputType,
     this.onSaved,
     this.validate,
+    this.isLast = false,
   });
 
   @override

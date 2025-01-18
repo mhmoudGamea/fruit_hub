@@ -1,49 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_hub/core/config/app_colors.dart';
-import 'package:fruit_hub/core/config/app_style.dart';
-import 'package:fruit_hub/core/widgets/custom_text_form_field.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../core/widgets/custom_text_form_field.dart';
+import '../../model_views/check_out_cubit.dart';
+import 'save_my_address_switch_button.dart';
 
 class AddressPage extends StatelessWidget {
   const AddressPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const CustomTextFormField(
-            hint: 'الاسم كامل', inputType: TextInputType.name),
-        const SizedBox(height: 8),
-        const CustomTextFormField(
-            hint: 'البريد الإلكتروني', inputType: TextInputType.name),
-        const SizedBox(height: 8),
-        const CustomTextFormField(
-            hint: 'العنوان', inputType: TextInputType.name),
-        const SizedBox(height: 8),
-        const CustomTextFormField(
-            hint: 'المدينه', inputType: TextInputType.name),
-        const SizedBox(height: 8),
-        const CustomTextFormField(
-            hint: 'رقم الطابق , رقم الشقه ..', inputType: TextInputType.name),
-        const SizedBox(height: 8),
-        Row(
-          children: [
-            Switch(
-              // activeColor: AppColors.backgroundItemColor,
+    final checkOutCubit = BlocProvider.of<CheckOutCubit>(context);
 
-              activeTrackColor: AppColors.primaryColor,
-              value: true,
-              onChanged: (value) {},
-            ),
-            const SizedBox(width: 5),
-            Text(
-              'حفظ العنوان',
-              style:
-                  AppStyle.fontsemi13.copyWith(color: const Color(0xff949D9E)),
-            ),
-          ],
+    return SingleChildScrollView(
+      child: ValueListenableBuilder(
+        valueListenable: checkOutCubit.addressAutoValidate,
+        builder: (context, value, _) => Form(
+          key: checkOutCubit.getAddressFormKey,
+          autovalidateMode: value,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomTextFormField(
+                hint: 'الاسم كامل',
+                inputType: TextInputType.name,
+                onSaved: (p0) => checkOutCubit.setName = p0!,
+              ),
+              const SizedBox(height: 8),
+              CustomTextFormField(
+                hint: 'البريد الإلكتروني',
+                inputType: TextInputType.emailAddress,
+                onSaved: (p0) => checkOutCubit.setEmail = p0!,
+              ),
+              const SizedBox(height: 8),
+              CustomTextFormField(
+                hint: 'رقم التليفون',
+                inputType: TextInputType.phone,
+                onSaved: (p0) => checkOutCubit.setPhone = p0!,
+              ),
+              const SizedBox(height: 8),
+              CustomTextFormField(
+                hint: 'العنوان',
+                inputType: TextInputType.name,
+                onSaved: (p0) => checkOutCubit.setAddress = p0!,
+              ),
+              const SizedBox(height: 8),
+              CustomTextFormField(
+                hint: 'المدينه',
+                inputType: TextInputType.name,
+                onSaved: (p0) => checkOutCubit.setCity = p0!,
+              ),
+              const SizedBox(height: 8),
+              CustomTextFormField(
+                hint: 'رقم الطابق , رقم الشقه ..',
+                inputType: TextInputType.name,
+                onSaved: (p0) => checkOutCubit.setFloor = p0!,
+                isLast: true,
+              ),
+              const SizedBox(height: 8),
+              const SaveMyAddressSwitchButton(),
+            ],
+          ),
         ),
-      ],
+      ),
     );
   }
 }

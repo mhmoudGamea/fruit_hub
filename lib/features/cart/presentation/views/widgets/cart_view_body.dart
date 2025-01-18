@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:fruit_hub/features/cart/presentation/model_views/cart_cubit/cart
 import 'package:fruit_hub/features/cart/presentation/model_views/cart_cubit/cart_state.dart';
 import 'package:fruit_hub/features/check_out/domain/entities/order_entity.dart';
 import 'package:fruit_hub/features/check_out/presentation/views/check_out_view.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/widgets/app_bar_with_back_icon.dart';
@@ -56,6 +58,7 @@ class CartViewBody extends StatelessWidget {
                         extra: OrderEntity(
                           cartEntity: cartCubit.getCartItems,
                           totalPrice: cartCubit.getTotalPriceForAllItem(),
+                          uid: GetIt.instance<FirebaseAuth>().currentUser!.uid,
                         ),
                       );
                     },

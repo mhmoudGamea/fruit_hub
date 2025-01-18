@@ -217,4 +217,12 @@ abstract class Helper {
                 ? 'لديك منتجان في سله التسوق'
                 : 'لديك $length منتجات في سله التسوق'));
   }
+
+  // method to extract last 4 number from card number
+  static String formatNumber(String number) {
+    if (number.length < 4) return number;
+    String lastFourDigits = number.substring(number.length - 4);
+    String formattedNumber = '**** **** **** $lastFourDigits';
+    return formattedNumber;
+  }
 }

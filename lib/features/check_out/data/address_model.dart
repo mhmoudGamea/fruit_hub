@@ -1,4 +1,4 @@
-class AddressEntity {
+class AddressModel {
   final String name;
   final String email;
   final String number;
@@ -7,7 +7,7 @@ class AddressEntity {
   final String floor;
   bool saveAddress;
 
-  AddressEntity({
+  AddressModel({
     required this.name,
     required this.email,
     required this.number,
@@ -17,8 +17,15 @@ class AddressEntity {
     this.saveAddress = false,
   });
 
-  @override
-  String toString() {
-    return '$city, $floor, $address';
+  static Map<String, dynamic> toJson(AddressModel address) {
+    return {
+      'name': address.name,
+      'email': address.email,
+      'number': address.number,
+      'address': address.address,
+      'city': address.city,
+      'floor': address.floor,
+      'saveAddress': address.saveAddress,
+    };
   }
 }

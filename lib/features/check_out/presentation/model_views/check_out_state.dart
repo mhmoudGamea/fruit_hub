@@ -11,3 +11,8 @@ class PageViewChanged extends CheckOutState {
 class PayWithCach extends CheckOutState {}
 
 class PayWithCard extends CheckOutState {}
+
+// address section
+class SaveMyAddress extends CheckOutState {}
+
+class DontSaveMyAddress extends CheckOutState {}
