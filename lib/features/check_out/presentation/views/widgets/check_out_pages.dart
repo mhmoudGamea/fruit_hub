@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../model_views/check_out_cubit.dart';
+import '../../model_views/check_out_cubit/check_out_cubit.dart';
 
 class CheckOutPages extends StatelessWidget {
   const CheckOutPages({

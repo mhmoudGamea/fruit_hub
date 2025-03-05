@@ -18,7 +18,7 @@ class OfferList extends StatelessWidget {
         enableInfiniteScroll: true,
         enlargeCenterPage: true,
         viewportFraction: 100,
-        // autoPlay: true, 
+        // autoPlay: true,
         autoPlayAnimationDuration: const Duration(milliseconds: 1000),
       ),
       items: List.generate(

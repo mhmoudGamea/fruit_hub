@@ -1,7 +1,6 @@
-import 'package:fruit_hub/features/check_out/domain/entities/pay_entity.dart';
-
 import 'address_entity.dart';
 import '../../../cart/domain/entity/cart_entity.dart';
+import 'pay_entity.dart';
 
 class OrderEntity {
   final List<CartEntity> cartEntity;

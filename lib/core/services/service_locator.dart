@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fruit_hub/core/services/firebase_order_service.dart';
+import 'package:fruit_hub/features/check_out/domain/repos/order_repo_impl.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,5 +32,7 @@ abstract class ServiceLocator {
     getIt.registerSingleton<ProductRepoImpl>(ProductRepoImpl());
     getIt.registerSingleton<FirebaseCartService>(FirebaseCartService());
     getIt.registerSingleton<CartRepoImpl>(CartRepoImpl());
+    getIt.registerSingleton<FirebaseOrderService>(FirebaseOrderService());
+    getIt.registerSingleton<OrderRepoImpl>(OrderRepoImpl());
   }
 }

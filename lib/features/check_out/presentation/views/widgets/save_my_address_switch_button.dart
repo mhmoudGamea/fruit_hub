@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/config/app_style.dart';
-import '../../model_views/check_out_cubit.dart';
+import '../../model_views/check_out_cubit/check_out_cubit.dart';
 
 class SaveMyAddressSwitchButton extends StatelessWidget {
   const SaveMyAddressSwitchButton({

@@ -1,12 +1,21 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
+import 'package:fruit_hub/core/model/paypal_model.dart';
 import 'package:fruit_hub/core/services/preferences.dart';
 import 'package:fruit_hub/core/services/serialization_service.dart';
 import 'package:fruit_hub/core/utilies/constants.dart';
 import 'package:fruit_hub/core/widgets/classifying_bottom_sheet_body.dart';
 import 'package:fruit_hub/features/auth/data/user_model.dart';
 import 'package:fruit_hub/features/auth/domain/entities/user_entity.dart';
+import 'package:fruit_hub/features/check_out/data/paypal_payment_model.dart';
+import 'package:fruit_hub/features/check_out/presentation/model_views/check_out_cubit/check_out_cubit.dart';
+import 'package:get_it/get_it.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../features/check_out/presentation/model_views/order_cubit/order_cubit.dart';
 import '../config/app_colors.dart';
 import '../config/app_style.dart';
 import '../entities/review_entity.dart';
@@ -224,5 +233,37 @@ abstract class Helper {
     String lastFourDigits = number.substring(number.length - 4);
     String formattedNumber = '**** **** **** $lastFourDigits';
     return formattedNumber;
+  }
+
+  static paypalNavigation(BuildContext context, CheckOutCubit checkOutCubit) {
+    log(PaypalPaymentModel.fromOrderEntity(checkOutCubit.getOrderEntity)
+        .toMap()
+        .toString());
+    PaypalModel paypalModel = GetIt.instance<PaypalModel>();
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (BuildContext context) => PaypalCheckoutView(
+        sandboxMode: true,
+        clientId: paypalModel.clientId,
+        secretKey: paypalModel.secretKey,
+        transactions: [
+          PaypalPaymentModel.fromOrderEntity(checkOutCubit.getOrderEntity)
+              .toMap()
+        ],
+        note: "Contact us for any questions on your order.",
+        onSuccess: (Map params) async {
+          Navigator.of(context).pop();
+          context
+              .read<OrderCubit>()
+              .addOrder(context, checkOutCubit.getOrderEntity);
+        },
+        onError: (error) {
+          log("onError: $error");
+          Navigator.pop(context);
+        },
+        onCancel: () {
+          log('cancelled:');
+        },
+      ),
+    ));
   }
 }

@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:fruit_hub/features/cart/data/cart_model.dart';
+import 'package:fruit_hub/features/check_out/data/product_model_details.dart';
 
 import '../domain/entities/order_entity.dart';
 import 'address_model.dart';
@@ -13,22 +16,32 @@ class OrderModel {
   PayModel? pay;
 
   OrderModel(
-      {required this.cartModel, required this.totalPrice, required this.uid});
+      {required this.cartModel,
+      required this.totalPrice,
+      required this.uid,
+      this.isCach,
+      this.address,
+      this.pay});
 
-  factory OrderModel.fromJson(OrderEntity orderEntity) {
+  factory OrderModel.fromOrderEntity(OrderEntity orderEntity) {
     return OrderModel(
       cartModel: orderEntity.cartEntity
           .map((item) => CartModel.fromCartEntity(item))
           .toList(),
       totalPrice: orderEntity.totalPrice,
       uid: orderEntity.uid,
+      isCach: orderEntity.isCach,
+      address: AddressModel.fromAddressEntity(orderEntity.address!),
+      pay: PayModel.fromAddressEntity(orderEntity.pay!),
     );
   }
-
+//orderModel.cartModel.map((item) => CartModel.toJson(item)).toList()
   static Map<String, dynamic> toJson(OrderModel orderModel) {
+    log(orderModel.address!.toString());
     return {
-      'cartItems':
-          orderModel.cartModel.map((item) => CartModel.toJson(item)).toList(),
+      'productItems': orderModel.cartModel
+          .map((item) => ProductModelDetails.toJson(item))
+          .toList(),
       'totalPrice': orderModel.totalPrice,
       'uid': orderModel.uid,
       'isCach': orderModel.isCach,

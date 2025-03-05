@@ -1,8 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/widgets/custom_text_form_field.dart';
-import '../../model_views/check_out_cubit.dart';
+import '../../model_views/check_out_cubit/check_out_cubit.dart';
 import 'save_my_address_switch_button.dart';
 
 class AddressPage extends StatelessWidget {
@@ -11,6 +13,7 @@ class AddressPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final checkOutCubit = BlocProvider.of<CheckOutCubit>(context);
+    log('mmmmmmmmmmmmmmmmmmmmm: ${checkOutCubit.name}');
 
     return SingleChildScrollView(
       child: ValueListenableBuilder(
@@ -55,7 +58,6 @@ class AddressPage extends StatelessWidget {
                 hint: 'رقم الطابق , رقم الشقه ..',
                 inputType: TextInputType.name,
                 onSaved: (p0) => checkOutCubit.setFloor = p0!,
-                isLast: true,
               ),
               const SizedBox(height: 8),
               const SaveMyAddressSwitchButton(),

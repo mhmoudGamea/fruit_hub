@@ -7,7 +7,7 @@ import '../../features/auth/presentation/views/otp_view.dart';
 import '../error/firebase_exception.dart';
 
 abstract class PhoneNumberAuthService {
-  Future<void> verifyPhoneNumber(String phoneNumber);
+  // Future<void> verifyPhoneNumber(String phoneNumber);
   //(PhoneAuthCredential credential) {}
   static void phoneAuthCredential(PhoneAuthCredential credential) async {
     await FirebaseAuth.instance.signInWithCredential(credential);

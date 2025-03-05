@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/features/check_out/domain/entities/address_entity.dart';
 
 import '../../../domain/entities/pay_entity.dart';
-import '../../model_views/check_out_cubit.dart';
+import '../../model_views/check_out_cubit/check_out_cubit.dart';
 import 'step_item.dart';
 
 class CheckOutSteps extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub/features/check_out/presentation/model_views/check_out_cubit.dart';
+import 'package:fruit_hub/features/check_out/presentation/model_views/check_out_cubit/check_out_cubit.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../core/config/app_colors.dart';

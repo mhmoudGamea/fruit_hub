@@ -5,3 +5,4 @@ const kUserData = 'userData';
 const kUsers = 'users';
 const kProducts = 'products';
 const kCart = 'cart';
+const kOrder = 'order';

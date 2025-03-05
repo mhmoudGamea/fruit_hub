@@ -5,7 +5,7 @@ import 'package:fruit_hub/core/utilies/helper.dart';
 
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/utilies/app_images.dart';
-import '../../model_views/check_out_cubit.dart';
+import '../../model_views/check_out_cubit/check_out_cubit.dart';
 import 'pay_methods.dart';
 
 class OrderConfirmation extends StatelessWidget {

@@ -1,3 +1,5 @@
+import 'package:fruit_hub/features/check_out/domain/entities/address_entity.dart';
+
 class AddressModel {
   final String name;
   final String email;
@@ -16,6 +18,16 @@ class AddressModel {
     required this.floor,
     this.saveAddress = false,
   });
+
+  factory AddressModel.fromAddressEntity(AddressEntity addressEntity) {
+    return AddressModel(
+        name: addressEntity.name,
+        email: addressEntity.email,
+        number: addressEntity.number,
+        address: addressEntity.address,
+        city: addressEntity.city,
+        floor: addressEntity.floor);
+  }
 
   static Map<String, dynamic> toJson(AddressModel address) {
     return {

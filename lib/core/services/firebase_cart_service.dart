@@ -19,15 +19,6 @@ class FirebaseCartService implements CartService {
       .doc(_firebaseAuth.currentUser!.uid)
       .collection(kCart);
 
-  // @override
-  // Future<bool> isCartItemExist(String documentId) async {
-  //   DocumentSnapshot result = await _collReference.doc(documentId).get();
-  //   if (result.exists) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
   @override
   Future<void> addToCart({
     required Map<String, dynamic> data,

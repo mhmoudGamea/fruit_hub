@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub/features/check_out/presentation/views/widgets/check_out_button_bloc_builder.dart';
 
 import '../../../../../core/utilies/constants.dart';
-import 'check_out_button.dart';
 import 'check_out_pages.dart';
 import 'check_out_steps.dart';
 
@@ -21,7 +21,7 @@ class CheckOutViewBody extends StatelessWidget {
           // page view
           CheckOutPages(),
           // button
-          CheckOutButton(),
+          CheckOutButtonBlocBuilder(),
           SizedBox(height: 32),
         ],
       ),

@@ -1,16 +1,16 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub/features/check_out/domain/entities/address_entity.dart';
 import 'package:fruit_hub/features/check_out/domain/entities/order_entity.dart';
+import 'package:fruit_hub/features/check_out/domain/entities/pay_entity.dart';
 
-import '../../../../core/utilies/helper.dart';
-import '../views/widgets/address_page.dart';
-import '../views/widgets/pay_page.dart';
-import '../views/widgets/revision_page.dart';
-import '../views/widgets/shipping_page.dart';
+import '../../../../../core/utilies/helper.dart';
+import '../../views/widgets/address_page.dart';
+import '../../views/widgets/pay_page.dart';
+import '../../views/widgets/revision_page.dart';
+import '../../views/widgets/shipping_page.dart';
 import 'check_out_state.dart';
 
 enum Pay {
@@ -103,8 +103,6 @@ class CheckOutCubit extends Cubit<CheckOutState> {
       } else {
         _orderEntity.isCach = false;
       }
-      log(_payMethod.toString());
-      log(_orderEntity.isCach.toString());
     } else {
       Helper.errorMessage(context, message: 'من فضلك حدد طريقه الدفع');
     }
@@ -148,6 +146,17 @@ class CheckOutCubit extends Cubit<CheckOutState> {
     }
   }
 
+  AddressEntity getAddressEntity() {
+    return AddressEntity(
+      name: name,
+      email: email,
+      number: phone,
+      address: address,
+      city: city,
+      floor: floor,
+    );
+  }
+
   // pay section
 
   final GlobalKey<FormState> _payFormKey = GlobalKey();
@@ -176,4 +185,13 @@ class CheckOutCubit extends Cubit<CheckOutState> {
   set setCardNumber(String value) => _cardNumber = value;
   set setExpiaryDate(String value) => _expiaryDate = value;
   set setcvv(String value) => _cvv = value;
+
+  PayEntity getPayEntity() {
+    return PayEntity(
+      cardOwner: cardOwner,
+      cardNumber: cardNumber,
+      expiaryDate: expiaryDate,
+      cvv: cvv,
+    );
+  }
 }
